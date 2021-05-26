@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">InGame</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about">About</string>
+    <string name="info">Info</string>
+    <string name="requirements">Requirements</string>
+    <string name="game_poster">Game Poster</string>
+    <string name="recommended">Recommended</string>
+    <string name="popular">Popular</string>
+    <string name="new_tab">New</string>
+    <string name="playstation_5">Playstation 5</string>
+    <string name="for_platform">For Platform</string>
+    <string name="home">Home</string>
+    <string name="catalogue">Catalogue</string>
+    <string name="collections">Collections</string>
+    <string name="profile">Profile</string>
+    <string name="favourites">Favourites</string>
+    <string name="played">Played</string>
+    <string name="calendar">Calendar</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="share_with_friends">Share with friends</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+
+    <string-array name="Platforms">
+        <item>Playstation 5</item>
+        <item>XBox Series X</item>
+        <item>Nintendo Switch</item>
+        <item>Playstation 4</item>
+        <item>PC</item>
+        <item>XBox One</item>
+    </string-array>
+</resources>
