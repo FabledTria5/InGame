@@ -7,4 +7,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface HomeView: BaseView {
     fun updateHotGames()
+    fun updateTab(previousTab: Int, newTab: Int)
 }

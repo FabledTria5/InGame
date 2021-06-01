@@ -5,18 +5,11 @@ import com.github.terrakok.cicerone.Cicerone
 
 class MvpApplication : Application() {
 
-    private val cicerone = Cicerone.create()
-    val router get() = cicerone.router
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
+    object Navigation {
+        private val cicerone by lazy { Cicerone.create() }
 
-    override fun onCreate() {
-        super.onCreate()
-        INSTANCE = this
-    }
-
-    companion object {
-        internal lateinit var INSTANCE: MvpApplication
-            private set
+        val router get() = cicerone.router
+        val navigatorHolder get() = cicerone.getNavigatorHolder()
     }
 
 }

@@ -3,9 +3,17 @@ package com.example.ingame.ui.fragments.home
 import com.example.ingame.utils.Constants
 import java.util.*
 
-class HomeModel(var timerListener: TimerListener? = null) {
+class HomeModel(private var timerListener: TimerListener? = null) {
 
     private lateinit var timer: Timer
+
+    private var previousTab = 0
+
+    fun getPreviousTab() = previousTab
+
+    fun updateTab(newTab: Int) {
+        previousTab = newTab
+    }
 
     fun addTimerListener(timerListener: TimerListener) {
         this.timerListener = timerListener

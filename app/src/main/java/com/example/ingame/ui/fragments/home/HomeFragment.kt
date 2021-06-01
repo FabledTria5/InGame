@@ -10,28 +10,30 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.example.ingame.MvpApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentHomeBinding
 import com.example.ingame.ui.adapters.viewpagers.GamesListAdapter
 import com.example.ingame.ui.adapters.viewpagers.HotGamesAdapter
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
+import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.unselectTab
 import com.google.android.material.tabs.TabLayoutMediator
-import com.wajahatkarim3.easyflipviewpager.CardFlipPageTransformer2
 import moxy.MvpAppCompatFragment
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
+import moxy.ktx.moxyPresenter
 
-class HomeFragment : MvpAppCompatFragment(), HomeView {
+class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
+
+    companion object {
+        fun newInstance()  = HomeFragment()
+    }
 
     private lateinit var binding: FragmentHomeBinding
 
-    @InjectPresenter
-    lateinit var homePresenter: HomePresenter
-
-    @ProvidePresenter
-    fun providePresenter() = HomePresenter(HomeModel())
+    private val homePresenter by moxyPresenter {
+        HomePresenter(HomeModel(), MvpApplication.Navigation.router)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +70,13 @@ class HomeFragment : MvpAppCompatFragment(), HomeView {
         }
     }
 
+    override fun updateTab(previousTab: Int, newTab: Int) {
+        binding.tabLayout.apply {
+            getTabAt(previousTab)?.unselectTab()
+            getTabAt(newTab)?.selectTab()
+        }
+    }
+
     private fun setupPlatformsMenu() {
         ArrayAdapter(
             requireContext(),
@@ -88,10 +97,6 @@ class HomeFragment : MvpAppCompatFragment(), HomeView {
 
     private fun setupTopViewPager() = binding.apply {
         vpHotGames.adapter = HotGamesAdapter(getFragments(), lifecycle, childFragmentManager)
-        val cardFlipPageTransformer2 = CardFlipPageTransformer2()
-        cardFlipPageTransformer2.isScalable = true
-        vpHotGames.setPageTransformer(cardFlipPageTransformer2)
-
         vpHotGames.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             private var isScrolled = false
 
@@ -122,11 +127,8 @@ class HomeFragment : MvpAppCompatFragment(), HomeView {
         }.attach()
 
         binding.vpGames.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            private var previousTab = 0
             override fun onPageSelected(position: Int) {
-                binding.tabLayout.getTabAt(previousTab)?.unselectTab()
-                binding.tabLayout.getTabAt(position)?.selectTab()
-                previousTab = position
+                homePresenter.tabChanged(position)
             }
         })
 
@@ -140,4 +142,6 @@ class HomeFragment : MvpAppCompatFragment(), HomeView {
         HotGameFragment(),
         HotGameFragment()
     )
+
+    override fun backPressed() = homePresenter.backPressed()
 }

@@ -5,21 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.example.ingame.MvpApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCatalogueBinding
+import com.example.ingame.ui.navigation.BackButtonListener
 import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
-class CatalogueFragment : MvpAppCompatFragment(), CatalogueView {
+class CatalogueFragment : MvpAppCompatFragment(), CatalogueView, BackButtonListener {
+
+    companion object {
+        fun newInstance() = CatalogueFragment()
+    }
 
     private lateinit var binding: FragmentCatalogueBinding
 
-    @InjectPresenter
-    lateinit var cataloguePresenter: CataloguePresenter
-
-    @ProvidePresenter
-    fun providePresenter() = CataloguePresenter()
+    private val cataloguePresenter by moxyPresenter {
+        CataloguePresenter(MvpApplication.Navigation.router)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +34,5 @@ class CatalogueFragment : MvpAppCompatFragment(), CatalogueView {
         return binding.root
     }
 
-    companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() = CatalogueFragment().apply {
-
-        }
-    }
+    override fun backPressed() = cataloguePresenter.backPressed()
 }

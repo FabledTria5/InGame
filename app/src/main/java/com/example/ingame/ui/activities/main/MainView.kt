@@ -1,10 +1,8 @@
-package com.example.ingame.ui.fragments.game
+package com.example.ingame.ui.activities.main
 
-import com.example.ingame.ui.base.BaseView
+import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface GameView : BaseView {
-    fun backPressed() : Boolean
-}
+interface MainView : MvpView

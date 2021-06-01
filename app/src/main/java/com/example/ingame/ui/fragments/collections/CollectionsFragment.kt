@@ -1,25 +1,28 @@
 package com.example.ingame.ui.fragments.collections
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.example.ingame.MvpApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCollectionsBinding
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
+import com.example.ingame.ui.navigation.BackButtonListener
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 
-class CollectionsFragment : Fragment(), CollectionsView {
+class CollectionsFragment : MvpAppCompatFragment(), CollectionsView, BackButtonListener {
+
+    companion object {
+        fun newInstance() = CollectionsFragment()
+    }
 
     private lateinit var binding: FragmentCollectionsBinding
 
-    @InjectPresenter
-    lateinit var collectionPresenter: CollectionPresenter
-
-    @ProvidePresenter
-    fun providePresenter() = CollectionPresenter()
+    private val collectionPresenter by moxyPresenter {
+        CollectionPresenter(MvpApplication.Navigation.router)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +33,5 @@ class CollectionsFragment : Fragment(), CollectionsView {
         return binding.root
     }
 
-    companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() = CollectionsFragment().apply {
-
-        }
-    }
+    override fun backPressed() = collectionPresenter.backPressed()
 }

@@ -11,6 +11,10 @@ import moxy.MvpAppCompatFragment
 
 class HotGameFragment : MvpAppCompatFragment() {
 
+    companion object {
+        fun newInstance() = HotGameFragment()
+    }
+
     private lateinit var binding: FragmentHotGameBinding
 
     override fun onCreateView(

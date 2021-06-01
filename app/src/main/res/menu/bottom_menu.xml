@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_catalogue"
         android:title="@string/catalogue" />
     <item
-        android:id="@+id/Collections"
+        android:id="@+id/collections"
         android:icon="@drawable/ic_collections"
         android:title="@string/collections" />
     <item
