@@ -35,6 +35,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("appkey.properties").newDataInputStream())
+        def games_api_key = properties.getProperty("games_api_key", "")
+        it.buildConfigField "String", "GAMES_API_KEY", games_api_key
+    }
 }
 
 dependencies {
@@ -51,7 +58,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Material Design
-    implementation 'com.google.android.material:material:1.4.0-beta01'
+    implementation 'com.google.android.material:material:1.4.0-rc01'
 
     // Scalable Size Units
     def ssu_version = "1.0.6"
@@ -73,7 +80,8 @@ dependencies {
 
     // RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.13-RC4'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
 
     // Room
     def room_version = "2.4.0-alpha02"

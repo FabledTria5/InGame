@@ -4,7 +4,10 @@ import com.example.ingame.ui.navigation.IScreens
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class MainPresenter(private val router: Router, private val screens: IScreens) :
+class MainPresenter(
+    private val router: Router,
+    private val screens: IScreens,
+) :
     MvpPresenter<MainView>() {
 
     fun backClicked() = router.exit()
@@ -16,5 +19,4 @@ class MainPresenter(private val router: Router, private val screens: IScreens) :
     fun collectionsClicked() = router.navigateTo(screens.collections())
 
     fun profileClicked() = router.navigateTo(screens.profile())
-
 }

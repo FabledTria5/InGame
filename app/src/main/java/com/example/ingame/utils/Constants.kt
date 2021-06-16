@@ -1,5 +1,5 @@
 package com.example.ingame.utils
 
 object Constants {
-    const val HOT_GAMES_DELAY_TICK_RATE = 6000L
+    const val HOT_GAMES_TICK_RATE = 6L
 }

@@ -1,34 +1,21 @@
 package com.example.ingame.ui.fragments.home
 
-import com.example.ingame.utils.Constants
-import java.util.*
+class HomeModel(private val sliderItemsCount: Int) {
 
-class HomeModel(private var timerListener: TimerListener? = null) {
+    private var currentSliderItem = 0
 
-    private lateinit var timer: Timer
+    fun nextPage() = currentSliderItem + 1
 
-    private var previousTab = 0
-
-    fun getPreviousTab() = previousTab
-
-    fun updateTab(newTab: Int) {
-        previousTab = newTab
+    fun resetSliderItem() {
+        currentSliderItem = 0
     }
 
-    fun addTimerListener(timerListener: TimerListener) {
-        this.timerListener = timerListener
+    fun isSliderFinished() = currentSliderItem == sliderItemsCount - 1
+
+    fun setCurrentSliderItem(sliderItem: Int) {
+        currentSliderItem = sliderItem
     }
 
-    fun startTimer() {
-        timer = Timer().also {
-            it.schedule(object : TimerTask() {
-                override fun run() {
-                    timerListener?.onTimerTick()
-                }
-            }, Constants.HOT_GAMES_DELAY_TICK_RATE, Constants.HOT_GAMES_DELAY_TICK_RATE)
-        }
-    }
-
-    fun stopTimer() = timer.cancel()
+    fun getCurrentItemPosition() = currentSliderItem
 
 }
