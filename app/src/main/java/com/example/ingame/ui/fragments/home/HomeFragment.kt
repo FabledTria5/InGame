@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
-import com.example.ingame.MvpApplication
 import com.example.ingame.R
+import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.databinding.FragmentHomeBinding
 import com.example.ingame.ui.adapters.viewpagers.GamesListAdapter
 import com.example.ingame.ui.adapters.viewpagers.HotGamesAdapter
@@ -15,12 +15,25 @@ import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.unselectTab
+import com.github.terrakok.cicerone.Router
 import com.google.android.material.tabs.TabLayoutMediator
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var uiScheduler: Scheduler
+
+    @Inject
+    lateinit var retrofitRepositoryImpl: RetrofitRepositoryImpl
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -30,9 +43,10 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
 
     private val homePresenter by moxyPresenter {
         HomePresenter(
-            AndroidSchedulers.mainThread(),
+            uiScheduler,
+            retrofitRepositoryImpl,
             HomeModel(sliderItemsCount = 5),
-            MvpApplication.Navigation.router
+            router
         )
     }
 

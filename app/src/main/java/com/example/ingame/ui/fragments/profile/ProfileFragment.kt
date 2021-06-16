@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.ingame.MvpApplication
+import com.example.ingame.MainApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentProfileBinding
 import com.example.ingame.ui.navigation.BackButtonListener
@@ -21,7 +21,7 @@ class ProfileFragment : MvpAppCompatFragment(), BackButtonListener, ProfileView 
     private lateinit var binding: FragmentProfileBinding
 
     private val profilePresenter by moxyPresenter {
-        ProfilePresenter(MvpApplication.Navigation.router)
+        ProfilePresenter(MainApplication.Navigation.router)
     }
 
     override fun onCreateView(

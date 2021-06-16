@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.ingame.MvpApplication
+import com.example.ingame.MainApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCollectionsBinding
 import com.example.ingame.ui.navigation.BackButtonListener
@@ -21,7 +21,7 @@ class CollectionsFragment : MvpAppCompatFragment(), CollectionsView, BackButtonL
     private lateinit var binding: FragmentCollectionsBinding
 
     private val collectionPresenter by moxyPresenter {
-        CollectionPresenter(MvpApplication.Navigation.router)
+        CollectionPresenter(MainApplication.Navigation.router)
     }
 
     override fun onCreateView(

@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.ingame.MvpApplication
+import com.example.ingame.MainApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentGameBinding
 import com.example.ingame.ui.navigation.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
 
 class GameFragment : MvpAppCompatFragment(), GameView, BackButtonListener {
 
@@ -22,7 +20,7 @@ class GameFragment : MvpAppCompatFragment(), GameView, BackButtonListener {
 
     private lateinit var binding: FragmentGameBinding
 
-    private val gamePresenter by moxyPresenter { GamePresenter(MvpApplication.Navigation.router) }
+    private val gamePresenter by moxyPresenter { GamePresenter(MainApplication.Navigation.router) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

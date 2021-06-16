@@ -2,8 +2,10 @@ package com.example.ingame
 
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
+import dagger.hilt.android.HiltAndroidApp
 
-class MvpApplication : Application() {
+@HiltAndroidApp
+class MainApplication : Application() {
 
     object Navigation {
         private val cicerone by lazy { Cicerone.create() }

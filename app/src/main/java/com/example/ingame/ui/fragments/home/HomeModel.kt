@@ -16,6 +16,4 @@ class HomeModel(private val sliderItemsCount: Int) {
         currentSliderItem = sliderItem
     }
 
-    fun getCurrentItemPosition() = currentSliderItem
-
 }

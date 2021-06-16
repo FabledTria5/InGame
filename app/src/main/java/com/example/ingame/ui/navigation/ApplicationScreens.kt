@@ -4,7 +4,6 @@ import com.example.ingame.ui.fragments.catalogue.CatalogueFragment
 import com.example.ingame.ui.fragments.collections.CollectionsFragment
 import com.example.ingame.ui.fragments.home.HomeFragment
 import com.example.ingame.ui.fragments.profile.ProfileFragment
-import com.github.terrakok.cicerone.Screen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 class ApplicationScreens : IScreens {

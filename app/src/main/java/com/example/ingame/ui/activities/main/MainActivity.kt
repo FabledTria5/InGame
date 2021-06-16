@@ -2,22 +2,24 @@ package com.example.ingame.ui.activities.main
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.example.ingame.MvpApplication
+import com.example.ingame.MainApplication
 import com.example.ingame.R
 import com.example.ingame.databinding.ActivityMainBinding
 import com.example.ingame.ui.navigation.ApplicationScreens
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.navigation.NavigationBarView
+import dagger.hilt.android.AndroidEntryPoint
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
+@AndroidEntryPoint
 class MainActivity : MvpAppCompatActivity(), MainView, NavigationBarView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
 
     private val mainPresenter by moxyPresenter {
-        MainPresenter(MvpApplication.Navigation.router, ApplicationScreens())
+        MainPresenter(MainApplication.Navigation.router, ApplicationScreens())
     }
 
     private val navigator = AppNavigator(this, R.id.fragmentContainer)
@@ -26,18 +28,18 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationBarView.OnItemS
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         savedInstanceState
-            ?: MvpApplication.Navigation.router.newRootScreen(ApplicationScreens().home())
+            ?: MainApplication.Navigation.router.newRootScreen(ApplicationScreens().home())
         binding.bottomNavigation.setOnItemSelectedListener(this)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        MvpApplication.Navigation.navigatorHolder.setNavigator(navigator)
+        MainApplication.Navigation.navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        MvpApplication.Navigation.navigatorHolder.removeNavigator()
+        MainApplication.Navigation.navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {
