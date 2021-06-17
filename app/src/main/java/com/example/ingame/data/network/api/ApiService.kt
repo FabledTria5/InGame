@@ -14,6 +14,7 @@ interface ApiService {
         @Query(value = "key", encoded = true) apiKey: String = BuildConfig.GAMES_API_KEY,
         @Query(value = "page") page: Int,
         @Query(value = "updated", encoded = true) updated: String,
+        @Query(value = "page_size") pageSize: Int
     ): Single<GamesList>
 
     @GET(value = "api/games")

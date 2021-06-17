@@ -17,5 +17,6 @@ data class Result(
     val slug: String,
     val suggestions_count: Int,
     val tba: Boolean,
+    val tags: List<Tag>,
     val updated: String
 )

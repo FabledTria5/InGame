@@ -10,8 +10,8 @@ class RetrofitRepositoryImpl @Inject constructor(
     private val apiHelper: ApiHelper
 ) : RetrofitRepository {
 
-    override fun getListOfGames(page: Int, updated: String): Single<GamesList> =
-        apiHelper.getListOfGames(page, updated)
+    override fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<GamesList> =
+        apiHelper.getListOfGames(page, updated, pageSize)
             .subscribeOn(Schedulers.io())
 
     override fun getGamesByPlatform(page: Int, platforms: String): Single<GamesList> =

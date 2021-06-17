@@ -28,7 +28,11 @@ class HomePresenter(
     }
 
     private fun getSliderGames() {
-        disposables += retrofitRepositoryImpl.getListOfGames(1, "2021-05-01,2021-06-01")
+        disposables += retrofitRepositoryImpl.getListOfGames(
+            1,
+            "2021-05-01,2021-06-01",
+            pageSize = 5
+        )
             .observeOn(uiScheduler)
             .subscribeBy(
                 onSuccess = (::onGetSliderGamesSuccess),
@@ -37,7 +41,7 @@ class HomePresenter(
     }
 
     private fun onGetSliderGamesSuccess(gamesList: GamesList) {
-        println("Got it!")
+        
     }
 
     private fun onGetSliderGamesError(error: Throwable) {
