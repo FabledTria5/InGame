@@ -10,6 +10,8 @@ class ApiHelperImpl @Inject constructor(
         apiService.getListOfGames(page = page, updated = updated, pageSize = pageSize)
 
     override fun getGamesByPlatform(page: Int, platforms: String) =
-        apiService.getGamesByPlatform(page, platforms)
+        apiService.getGamesByPlatform(page = page, platforms = platforms)
+
+    override fun getGameDetails(id: Int) = apiService.getGameDetails(id = id)
 
 }

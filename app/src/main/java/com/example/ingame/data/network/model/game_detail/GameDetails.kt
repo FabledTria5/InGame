@@ -1,5 +1,8 @@
 package com.example.ingame.data.network.model.game_detail
 
+import com.example.ingame.data.network.model.common.EsrbRating
+import com.example.ingame.data.network.model.common.Platforms
+
 data class GameDetails(
     val achievements_count: Int,
     val added: Int,
@@ -22,7 +25,7 @@ data class GameDetails(
     val parents_count: Int,
     val platforms: List<Platforms>,
     val playtime: Int,
-    val rating: Int,
+    val rating: Double,
     val rating_top: Int,
     val ratings_count: Int,
     val reddit_count: Int,

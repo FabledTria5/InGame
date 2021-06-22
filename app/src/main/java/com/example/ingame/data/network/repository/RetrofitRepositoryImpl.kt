@@ -1,6 +1,7 @@
 package com.example.ingame.data.network.repository
 
 import com.example.ingame.data.network.api.ApiHelper
+import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.games_list.GamesList
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,5 +18,8 @@ class RetrofitRepositoryImpl @Inject constructor(
     override fun getGamesByPlatform(page: Int, platforms: String): Single<GamesList> =
         apiHelper.getGamesByPlatform(page, platforms)
             .subscribeOn(Schedulers.io())
+
+    override fun getGameDetails(id: Int): Single<GameDetails> =
+        apiHelper.getGameDetails(id).subscribeOn(Schedulers.io())
 
 }

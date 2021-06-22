@@ -1,18 +1,17 @@
 package com.example.ingame.ui.adapters.viewpagers
 
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 import moxy.MvpAppCompatFragment
 
+@Suppress("DEPRECATION")
 class HotGamesAdapter(
     private val fragments: List<MvpAppCompatFragment>,
-    lifecycle: Lifecycle,
     fragmentManager: FragmentManager
-) : FragmentStateAdapter(fragmentManager, lifecycle) {
+) : FragmentPagerAdapter(fragmentManager) {
 
-    override fun getItemCount() = fragments.count()
+    override fun getCount(): Int = fragments.count()
 
-    override fun createFragment(position: Int) = fragments[position]
+    override fun getItem(position: Int) = fragments[position]
 
 }

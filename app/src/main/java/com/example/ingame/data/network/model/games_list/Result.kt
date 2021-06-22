@@ -1,5 +1,9 @@
 package com.example.ingame.data.network.model.games_list
 
+import com.example.ingame.data.network.model.common.EsrbRating
+import com.example.ingame.data.network.model.common.Platforms
+import java.io.Serializable
+
 data class Result(
     val added: Int,
     val background_image: String,
@@ -19,4 +23,4 @@ data class Result(
     val tba: Boolean,
     val tags: List<Tag>,
     val updated: String
-)
+) : Serializable

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">InGame</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="about">About</string>
     <string name="info">Info</string>
     <string name="requirements">Requirements</string>
@@ -20,6 +19,7 @@
     <string name="buy_now">Buy Now</string>
     <string name="share_with_friends">Share with friends</string>
     <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="dots">…</string>
 
     <string-array name="Platforms">
         <item>Playstation 5</item>

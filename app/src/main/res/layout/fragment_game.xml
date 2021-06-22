@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="gameDetail"
+            type="com.example.ingame.data.network.model.game_detail.GameDetails" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,16 +34,39 @@
 
                     <ImageView
                         android:id="@+id/imageView"
+                        imageUrl="@{gameDetail.background_image}"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_400sdp"
                         android:contentDescription="@string/game_poster"
                         android:foreground="@drawable/poster_foreground"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_poster"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:targetApi="m" />
+
+                    <ImageView
+                        android:id="@+id/ivBackButton"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:rotation="90"
+                        android:src="@drawable/ic_arrow_down"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivBrowser"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/ivBrowser"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/ivBrowser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:alpha="0.9"
+                        android:src="@drawable/ic_browser"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
 
                     <TextView
                         android:id="@+id/tvGameTitle"
@@ -45,6 +75,7 @@
                         android:layout_margin="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:maxWidth="@dimen/_170sdp"
+                        android:text="@{gameDetail.name}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_25ssp"
                         android:textStyle="bold"
@@ -70,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:alpha="0.4"
+                        android:text="@{gameDetail.esrb_rating.name}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -81,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:alpha="0.4"
+                        android:text="@{gameDetail.released.substring(0, 4)}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"

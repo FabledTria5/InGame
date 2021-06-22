@@ -3,8 +3,12 @@ package com.example.ingame.utils
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
+import moxy.MvpAppCompatFragment
 
 fun TabLayout.Tab.selectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
@@ -24,4 +28,12 @@ fun TabLayout.Tab.selectTab() {
 fun TabLayout.Tab.unselectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
     textView.paint.shader = null
+}
+
+fun MvpAppCompatFragment.toast(message: String) =
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+fun Fragment.arguments(vararg arguments: Pair<String, Any>): Fragment {
+    this.arguments = bundleOf(*arguments)
+    return this
 }

@@ -1,6 +1,7 @@
 package com.example.ingame.data.network.api
 
 import com.example.ingame.BuildConfig
+import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.games_list.GamesList
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -23,5 +24,11 @@ interface ApiService {
         @Query(value = "platforms") platforms: String,
         @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
     ): Single<GamesList>
+
+    @GET(value = "api/games/{id}")
+    fun getGameDetails(
+        @Path(value = "id") id: Int,
+        @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
+    ): Single<GameDetails>
 
 }

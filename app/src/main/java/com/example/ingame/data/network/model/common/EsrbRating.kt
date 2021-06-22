@@ -1,4 +1,4 @@
-package com.example.ingame.data.network.model.game_detail
+package com.example.ingame.data.network.model.common
 
 data class EsrbRating(
     val id: Int,

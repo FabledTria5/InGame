@@ -22,11 +22,11 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideBaseUrl() = Constants.GAMES_BASE_URL
+    fun provideBaseUrl(): String = Constants.GAMES_BASE_URL
 
     @Singleton
     @Provides
-    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
+    fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
@@ -53,8 +53,4 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
-
-    @Singleton
-    @Provides
-    fun provideRetrofitRepository(apiHelper: ApiHelper) = RetrofitRepositoryImpl(apiHelper)
 }
