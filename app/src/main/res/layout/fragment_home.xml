@@ -24,8 +24,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax">
+                    android:fitsSystemWindows="true">
 
                     <pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
                         android:id="@+id/vpHotGames"
@@ -66,7 +65,6 @@
                 app:tabBackground="@drawable/tab_background"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
-                app:tabSelectedTextColor="@color/Turquoise"
                 app:tabTextAppearance="@style/TabTextAppearance"
                 app:tabTextColor="@color/DarkLateGray">
 

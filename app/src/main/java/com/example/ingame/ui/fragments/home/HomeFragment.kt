@@ -14,13 +14,13 @@ import com.example.ingame.ui.adapters.viewpagers.GamesListAdapter
 import com.example.ingame.ui.adapters.viewpagers.HotGamesAdapter
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.navigation.BackButtonListener
-import com.example.ingame.ui.navigation.IScreens
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.toast
 import com.example.ingame.utils.unselectTab
 import com.github.terrakok.cicerone.Router
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Scheduler
@@ -40,9 +40,6 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
     @Inject
     lateinit var retrofitRepositoryImpl: RetrofitRepositoryImpl
 
-    @Inject
-    lateinit var screens: IScreens
-
     companion object {
         fun newInstance() = HomeFragment()
     }
@@ -53,8 +50,7 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
         HomePresenter(
             uiScheduler,
             retrofitRepositoryImpl,
-            router,
-            screens
+            router
         )
     }
 
@@ -126,7 +122,7 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
         binding.indicator.setViewPager(binding.vpHotGames)
     }
 
-    private fun setupGamesViewPager() {
+    override fun setupGamesViewPager() {
         binding.vpGames.adapter =
             GamesListAdapter(lifecycle = lifecycle, fragmentManager = childFragmentManager)
 
@@ -134,11 +130,27 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
             when (position) {
                 0 -> tab.setText(R.string.recommended)
                 1 -> tab.setText(R.string.popular)
-                else -> tab.setText(R.string.new_tab)
+                2 -> tab.setText(R.string.new_tab)
             }
-            binding.vpGames.setCurrentItem(position, true)
         }.attach()
-        binding.vpGames.currentItem = 0
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) =
+                homePresenter.onGamesPageSelected(tab?.position)
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) =
+                homePresenter.onGamesPageUnselected(tab?.position)
+
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+        })
+    }
+
+    override fun selectPageText(page: Int?) {
+        page?.let { binding.tabLayout.getTabAt(it)?.selectTab() }
+    }
+
+    override fun unselectPageText(page: Int?) {
+        page?.let { binding.tabLayout.getTabAt(it)?.unselectTab()}
     }
 
     override fun backPressed() = homePresenter.backPressed()

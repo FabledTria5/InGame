@@ -12,6 +12,15 @@ interface HomeView : BaseView {
     @AddToEndSingle
     fun setNewSliderItem(previousTab: Int, newTab: Int)
 
+    @AddToEndSingle
+    fun setupGamesViewPager()
+
+    @AddToEndSingle
+    fun selectPageText(page: Int?)
+
+    @Skip
+    fun unselectPageText(page: Int?)
+
     @Skip
     fun showError()
 

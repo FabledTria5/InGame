@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.games_list.Result
 import com.example.ingame.databinding.FragmentHotGameBinding
-import com.example.ingame.ui.fragments.home.OnGameClickListener
 import com.example.ingame.ui.navigation.IScreens
 import com.example.ingame.utils.arguments
 import com.github.terrakok.cicerone.Router
@@ -22,13 +21,10 @@ class HotGameFragment : MvpAppCompatFragment(), HotGameView {
 
     companion object {
         private const val GAME_INFO = "game_info"
-        private const val GAME_CLICK_LISTENER = "listener"
 
-        fun newInstance(gameInfo: Result, onGameClickListener: OnGameClickListener) =
-            HotGameFragment().arguments(
-                GAME_INFO to gameInfo,
-                GAME_CLICK_LISTENER to onGameClickListener
-            )
+        fun newInstance(gameInfo: Result) = HotGameFragment().arguments(
+            GAME_INFO to gameInfo,
+        )
     }
 
     @Inject
@@ -41,10 +37,6 @@ class HotGameFragment : MvpAppCompatFragment(), HotGameView {
 
     private val gameInfo by lazy {
         arguments?.getSerializable(GAME_INFO)!! as Result
-    }
-
-    private val onGameClickListener by lazy {
-        arguments?.getSerializable(GAME_CLICK_LISTENER) as OnGameClickListener
     }
 
     private val hotGamePresenter by moxyPresenter {
