@@ -41,6 +41,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationBarView.OnItemS
         savedInstanceState
             ?: router.newRootScreen(screens.home())
         binding.bottomNavigation.setOnItemSelectedListener(this)
+        binding.bottomNavigation.itemIconTintList = null
     }
 
     override fun onResumeFragments() {
@@ -54,8 +55,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationBarView.OnItemS
     }
 
     override fun onBackPressed() {
-        supportFragmentManager.fragments.forEach {
-            if (it is BackButtonListener && it.backPressed()) return
+        supportFragmentManager.fragments.forEach { fragment ->
+            if (fragment is BackButtonListener && fragment.backPressed()) return
         }
         mainPresenter.backClicked()
     }

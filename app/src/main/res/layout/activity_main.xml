@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
             android:background="@color/black"
-            app:itemIconTint="@drawable/bottom_menu_selector"
             app:itemTextColor="@drawable/bottom_menu_selector"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"

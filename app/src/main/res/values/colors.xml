@@ -14,7 +14,7 @@
     <color name="AppBarColor">#191a1d</color>
     <color name="IndicatorUnselected">#29292b</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#656467</color>
-    <color name="MediumLateBlue">#747efb</color>
+    <color name="CornFlowerBlue">#61a2d3</color>
     <color name="Turquoise">#26e3ec</color>
 
 </resources>
