@@ -63,10 +63,6 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupGamesViewPager()
-    }
-
     override fun onPause() {
         binding.vpHotGames.stopAutoScroll()
         super.onPause()

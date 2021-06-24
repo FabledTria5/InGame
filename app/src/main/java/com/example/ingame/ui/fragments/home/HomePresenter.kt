@@ -24,6 +24,7 @@ class HomePresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.setupGamesViewPager()
+        viewState.selectPageText(0)
         getSliderGames()
     }
 
