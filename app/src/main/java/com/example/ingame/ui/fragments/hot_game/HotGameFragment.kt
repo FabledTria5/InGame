@@ -9,9 +9,7 @@ import com.example.ingame.R
 import com.example.ingame.data.network.model.games_list.Result
 import com.example.ingame.databinding.FragmentHotGameBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
-import com.example.ingame.ui.navigation.IScreens
 import com.example.ingame.utils.arguments
-import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -26,10 +24,7 @@ class HotGameFragment : BaseDaggerFragment(), HotGameView {
     }
 
     @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var screens: IScreens
+    lateinit var hotGamePresenterFactory: HotGamesPresenterFactory
 
     private lateinit var binding: FragmentHotGameBinding
 
@@ -38,7 +33,7 @@ class HotGameFragment : BaseDaggerFragment(), HotGameView {
     }
 
     private val hotGamePresenter by moxyPresenter {
-        HotGamePresenter(gameInfo, router, screens)
+        hotGamePresenterFactory.create(gameInfo)
     }
 
     override fun onCreateView(
@@ -53,7 +48,7 @@ class HotGameFragment : BaseDaggerFragment(), HotGameView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.root.setOnClickListener {
-            router.navigateTo(screens.games(gameInfo.id))
+            hotGamePresenter.onGameClicked()
         }
     }
 

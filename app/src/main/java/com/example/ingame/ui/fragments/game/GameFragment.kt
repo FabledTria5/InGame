@@ -29,23 +29,13 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     private lateinit var binding: FragmentGameBinding
 
     @Inject
-    lateinit var router: Router
+    lateinit var gamePresenterFactory: GamePresenterFactory
 
-    @Inject
-    lateinit var retrofitRepositoryImpl: RetrofitRepositoryImpl
-
-    @Inject
-    lateinit var schedulers: Schedulers
+    private val gameId by lazy { arguments?.getInt(GAME_ID)!! }
 
     private val gamePresenter by moxyPresenter {
-        GamePresenter(
-            gameId,
-            router,
-            retrofitRepositoryImpl,
-            schedulers
-        )
+        gamePresenterFactory.create(gameId)
     }
-    private val gameId by lazy { arguments?.getInt(GAME_ID)!! }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="hotGamesLoaded"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +25,7 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_215sdp"
                 android:fitsSystemWindows="true"
                 app:layout_scrollFlags="enterAlways|enterAlwaysCollapsed|scroll"
                 app:titleEnabled="false">
@@ -26,10 +35,22 @@
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true">
 
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:visibility="@{hotGamesLoaded ? View.INVISIBLE : View.VISIBLE, default=visible}"
+                        app:indicatorColor="@color/CornFlowerBlue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
                         android:id="@+id/vpHotGames"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_200sdp"
+                        android:visibility="@{hotGamesLoaded ? View.VISIBLE : View.INVISIBLE, default=invisible}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:visibility="@{hotGamesLoaded ? View.VISIBLE : View.INVISIBLE, default=invisible}"
                         app:ci_drawable="@drawable/blue_gradient"
                         app:ci_drawable_unselected="@drawable/indicator_unselected"
                         app:ci_height="@dimen/_4sdp"

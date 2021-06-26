@@ -16,7 +16,7 @@ import javax.inject.Inject
 class CollectionsFragment : BaseDaggerFragment(), CollectionsView, BackButtonListener {
 
     @Inject
-    lateinit var router: Router
+    lateinit var collectionPresenterFactory: CollectionPresenterFactory
 
     companion object {
         fun newInstance() = CollectionsFragment()
@@ -25,7 +25,7 @@ class CollectionsFragment : BaseDaggerFragment(), CollectionsView, BackButtonLis
     private lateinit var binding: FragmentCollectionsBinding
 
     private val collectionPresenter by moxyPresenter {
-        CollectionPresenter(router)
+        collectionPresenterFactory.create()
     }
 
     override fun onCreateView(

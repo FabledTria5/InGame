@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ProfileFragment : BaseDaggerFragment(), BackButtonListener, ProfileView {
 
     @Inject
-    lateinit var router: Router
+    lateinit var profilePresenterFactory: ProfilePresenterFactory
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -25,7 +25,7 @@ class ProfileFragment : BaseDaggerFragment(), BackButtonListener, ProfileView {
     private lateinit var binding: FragmentProfileBinding
 
     private val profilePresenter by moxyPresenter {
-        ProfilePresenter(router)
+        profilePresenterFactory.create()
     }
 
     override fun onCreateView(

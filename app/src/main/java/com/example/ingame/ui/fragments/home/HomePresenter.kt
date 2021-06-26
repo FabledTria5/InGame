@@ -5,13 +5,13 @@ import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.schedulers.Schedulers
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Scheduler
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
 
-class HomePresenter(
+class HomePresenter @AssistedInject constructor(
     private val schedulers: Schedulers,
     private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
     private val router: Router,
