@@ -5,9 +5,13 @@ import com.example.ingame.ui.base.BaseView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 import moxy.viewstate.strategy.alias.AddToEndSingle
+import moxy.viewstate.strategy.alias.Skip
 
 interface GameView : BaseView {
 
     @AddToEndSingle
     fun setGameData(gameDetails: GameDetails)
+
+    @Skip
+    fun openBrowser()
 }

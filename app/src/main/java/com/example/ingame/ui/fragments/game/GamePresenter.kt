@@ -47,4 +47,6 @@ class GamePresenter @AssistedInject constructor (
         router.exit()
         return true
     }
+
+    fun onBrowserClick() = viewState.openBrowser()
 }

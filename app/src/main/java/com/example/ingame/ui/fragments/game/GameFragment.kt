@@ -1,5 +1,7 @@
 package com.example.ingame.ui.fragments.game
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.databinding.FragmentGameBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
-import com.example.ingame.ui.schedulers.Schedulers
 import com.example.ingame.utils.arguments
-import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Scheduler
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -47,10 +45,29 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupListeners()
+    }
+
     override fun setGameData(gameDetails: GameDetails) {
         binding.gameDetail = gameDetails
     }
 
+    override fun openBrowser() = Intent().apply {
+        action = Intent.ACTION_VIEW
+        data = Uri.parse(binding.gameDetail?.website)
+    }.let(::startActivity)
+
     override fun backPressed() = gamePresenter.backPressed()
+
+    private fun setupListeners() {
+        binding.ivBackButton.setOnClickListener {
+            gamePresenter.backPressed()
+        }
+
+        binding.ivBrowser.setOnClickListener {
+            gamePresenter.onBrowserClick()
+        }
+    }
 
 }
