@@ -13,6 +13,9 @@ import com.example.ingame.databinding.FragmentGameBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.arguments
+import com.example.ingame.utils.selectTab
+import com.example.ingame.utils.unselectTab
+import com.google.android.material.tabs.TabLayout
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -58,6 +61,14 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
         data = Uri.parse(binding.gameDetail?.website)
     }.let(::startActivity)
 
+    override fun selectPageText(page: Int) {
+        binding.tabLayout.getTabAt(page)?.selectTab()
+    }
+
+    override fun unselectPageText(page: Int) {
+        binding.tabLayout.getTabAt(page)?.unselectTab()
+    }
+
     override fun backPressed() = gamePresenter.backPressed()
 
     private fun setupListeners() {
@@ -68,6 +79,18 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
         binding.ivBrowser.setOnClickListener {
             gamePresenter.onBrowserClick()
         }
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                gamePresenter.onTabSelected(tab?.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                gamePresenter.onTabUnselected(tab?.position)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+        })
     }
 
 }

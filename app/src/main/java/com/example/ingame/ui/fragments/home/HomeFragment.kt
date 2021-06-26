@@ -117,22 +117,24 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
         }.attach()
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) =
+            override fun onTabSelected(tab: TabLayout.Tab?) {
                 homePresenter.onGamesPageSelected(tab?.position)
+            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) =
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
                 homePresenter.onGamesPageUnselected(tab?.position)
+            }
 
             override fun onTabReselected(tab: TabLayout.Tab?) = Unit
         })
     }
 
-    override fun selectPageText(page: Int?) {
-        page?.let { binding.tabLayout.getTabAt(it)?.selectTab() }
+    override fun selectPageText(page: Int) {
+       binding.tabLayout.getTabAt(page)?.selectTab()
     }
 
-    override fun unselectPageText(page: Int?) {
-        page?.let { binding.tabLayout.getTabAt(it)?.unselectTab() }
+    override fun unselectPageText(page: Int) {
+         binding.tabLayout.getTabAt(page)?.unselectTab()
     }
 
     override fun backPressed() = homePresenter.backPressed()

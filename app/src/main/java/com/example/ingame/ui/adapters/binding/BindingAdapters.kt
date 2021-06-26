@@ -9,6 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.ingame.R
 import com.example.ingame.data.network.model.common.Platforms
+import com.example.ingame.data.network.model.game_detail.Genre
 import java.util.stream.Collectors
 
 @BindingAdapter("imageUrl")
@@ -40,4 +41,23 @@ fun setPlatforms(textView: TextView, platforms: List<Platforms>) {
         textView.text =
             TextUtils.join(", ", platformsNames) + textView.context.getString(R.string.dots)
     else textView.text = TextUtils.join(", ", platformsNames)
+}
+
+@BindingAdapter("genres")
+fun setGenres(textView: TextView, genres: List<Genre>?) {
+    if (genres.isNullOrEmpty()) return
+    val genresNames = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        genres
+            .stream()
+            .limit(2)
+            .map { it.name }
+            .collect(Collectors.toList())
+    } else {
+        val strings = arrayListOf<String>()
+        for (genre in genres) {
+            strings.add(genre.name)
+        }
+        strings.subList(0, 2)
+    }
+    textView.text = TextUtils.join(", ", genresNames)
 }

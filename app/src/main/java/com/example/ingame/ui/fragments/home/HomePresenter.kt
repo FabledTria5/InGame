@@ -64,8 +64,8 @@ class HomePresenter @AssistedInject constructor(
         return true
     }
 
-    fun onGamesPageSelected(position: Int?) = viewState.selectPageText(position)
+    fun onGamesPageSelected(position: Int?) = position?.let(viewState::selectPageText)
 
-    fun onGamesPageUnselected(position: Int?) = viewState.unselectPageText(position)
+    fun onGamesPageUnselected(position: Int?) = position?.let(viewState::unselectPageText)
 
 }

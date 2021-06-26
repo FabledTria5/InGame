@@ -77,7 +77,7 @@
                         android:maxWidth="@dimen/_170sdp"
                         android:text="@{gameDetail.name}"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_25ssp"
+                        android:textSize="@dimen/_27ssp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/tvPublishers"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -88,6 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:alpha="0.5"
+                        android:text="@{gameDetail.publishers[0].name}"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11ssp"
@@ -118,6 +119,19 @@
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
                         app:layout_constraintStart_toEndOf="@+id/tvGameRating" />
+
+                    <TextView
+                        android:id="@+id/tvGameGenres"
+                        genres="@{gameDetail.genres}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:alpha="0.4"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvGameReleaseYear"
+                        app:layout_constraintStart_toEndOf="@id/tvGameReleaseYear"
+                        app:layout_constraintTop_toTopOf="@+id/tvGameReleaseYear" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

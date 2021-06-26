@@ -15,6 +15,8 @@ data class GameDetails(
     val esrb_rating: EsrbRating,
     val game_series_count: Int,
     val id: Int,
+    val genres: List<Genre>,
+    val publishers: List<Publisher>,
     val metacritic: Int,
     val metacritic_platforms: List<MetacriticPlatform>,
     val metacritic_url: String,
