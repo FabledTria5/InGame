@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentGamesListBinding
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.adapters.recyclerviews.HomeGamesListAdapter
 import com.example.ingame.utils.GridSpacingItemDecorator
-import moxy.MvpAppCompatFragment
 
-class GamesListFragment : MvpAppCompatFragment() {
+class GamesListFragment : BaseDaggerFragment() {
 
     private lateinit var binding: FragmentGamesListBinding
 

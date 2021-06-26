@@ -10,10 +10,12 @@ import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
 import com.example.ingame.R
 import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.databinding.FragmentHomeBinding
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.adapters.viewpagers.GamesListAdapter
 import com.example.ingame.ui.adapters.viewpagers.HotGamesAdapter
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.navigation.BackButtonListener
+import com.example.ingame.ui.schedulers.Schedulers
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
 import com.example.ingame.utils.selectTab
@@ -22,20 +24,17 @@ import com.example.ingame.utils.unselectTab
 import com.github.terrakok.cicerone.Router
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Scheduler
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
+class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
     @Inject
     lateinit var router: Router
 
     @Inject
-    lateinit var uiScheduler: Scheduler
+    lateinit var schedulers: Schedulers
 
     @Inject
     lateinit var retrofitRepositoryImpl: RetrofitRepositoryImpl
@@ -48,7 +47,7 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
 
     private val homePresenter by moxyPresenter {
         HomePresenter(
-            uiScheduler,
+            schedulers,
             retrofitRepositoryImpl,
             router
         )
@@ -146,7 +145,7 @@ class HomeFragment : MvpAppCompatFragment(), HomeView, BackButtonListener {
     }
 
     override fun unselectPageText(page: Int?) {
-        page?.let { binding.tabLayout.getTabAt(it)?.unselectTab()}
+        page?.let { binding.tabLayout.getTabAt(it)?.unselectTab() }
     }
 
     override fun backPressed() = homePresenter.backPressed()

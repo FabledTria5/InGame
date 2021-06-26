@@ -9,17 +9,16 @@ import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.databinding.FragmentGameBinding
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
+import com.example.ingame.ui.schedulers.Schedulers
 import com.example.ingame.utils.arguments
 import com.github.terrakok.cicerone.Router
-import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Scheduler
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class GameFragment : MvpAppCompatFragment(), GameView, BackButtonListener {
+class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
 
     companion object {
         private const val GAME_ID = "game_id"
@@ -36,14 +35,14 @@ class GameFragment : MvpAppCompatFragment(), GameView, BackButtonListener {
     lateinit var retrofitRepositoryImpl: RetrofitRepositoryImpl
 
     @Inject
-    lateinit var uiScheduler: Scheduler
+    lateinit var schedulers: Schedulers
 
     private val gamePresenter by moxyPresenter {
         GamePresenter(
             gameId,
             router,
             retrofitRepositoryImpl,
-            uiScheduler
+            schedulers
         )
     }
     private val gameId by lazy { arguments?.getInt(GAME_ID)!! }

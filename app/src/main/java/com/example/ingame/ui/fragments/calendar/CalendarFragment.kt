@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCalendarBinding
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.DayViewContainer
 import com.example.ingame.utils.MonthViewContainer
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -17,13 +18,12 @@ import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
-import moxy.MvpAppCompatFragment
 import java.text.SimpleDateFormat
 import java.time.YearMonth
 import java.time.temporal.WeekFields
 import java.util.*
 
-class CalendarFragment : MvpAppCompatFragment() {
+class CalendarFragment : BaseDaggerFragment() {
 
     private lateinit var binding: FragmentCalendarBinding
 

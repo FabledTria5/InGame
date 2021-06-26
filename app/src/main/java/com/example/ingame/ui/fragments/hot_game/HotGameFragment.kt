@@ -8,16 +8,14 @@ import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.games_list.Result
 import com.example.ingame.databinding.FragmentHotGameBinding
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.IScreens
 import com.example.ingame.utils.arguments
 import com.github.terrakok.cicerone.Router
-import dagger.hilt.android.AndroidEntryPoint
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class HotGameFragment : MvpAppCompatFragment(), HotGameView {
+class HotGameFragment : BaseDaggerFragment(), HotGameView {
 
     companion object {
         private const val GAME_INFO = "game_info"
