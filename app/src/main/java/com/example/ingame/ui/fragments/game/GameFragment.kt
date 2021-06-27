@@ -10,12 +10,15 @@ import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.databinding.FragmentGameBinding
+import com.example.ingame.ui.adapters.viewpagers.GameInfoAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
+import com.example.ingame.ui.fragments.about.AboutFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.arguments
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.unselectTab
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -50,6 +53,23 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
+    }
+
+    override fun initViewPager(gameDetails: GameDetails) {
+        binding.vpGameInfo.adapter =
+            GameInfoAdapter(
+                lifecycle = lifecycle,
+                fragmentManager = childFragmentManager,
+                fragments = arrayListOf(AboutFragment.newInstance(gameDetails = gameDetails))
+            )
+
+        TabLayoutMediator(binding.tabLayout, binding.vpGameInfo) { tab, position ->
+            when (position) {
+                0 -> tab.text = getString(R.string.about)
+                1 -> tab.text = getString(R.string.info)
+                2 -> tab.text = getString(R.string.requirements)
+            }
+        }.attach()
     }
 
     override fun setGameData(gameDetails: GameDetails) {

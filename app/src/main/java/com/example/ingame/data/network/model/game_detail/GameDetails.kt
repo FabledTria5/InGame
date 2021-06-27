@@ -2,6 +2,7 @@ package com.example.ingame.data.network.model.game_detail
 
 import com.example.ingame.data.network.model.common.EsrbRating
 import com.example.ingame.data.network.model.common.Platforms
+import java.io.Serializable
 
 data class GameDetails(
     val achievements_count: Int,
@@ -45,4 +46,4 @@ data class GameDetails(
     val updated: String,
     val website: String,
     val youtube_count: String
-)
+) : Serializable

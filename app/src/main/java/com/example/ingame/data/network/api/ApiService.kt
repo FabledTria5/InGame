@@ -3,6 +3,7 @@ package com.example.ingame.data.network.api
 import com.example.ingame.BuildConfig
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.games_list.GamesList
+import com.example.ingame.data.network.model.screenshots.Screenshots
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,5 +31,11 @@ interface ApiService {
         @Path(value = "id") id: Int,
         @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
     ): Single<GameDetails>
+
+    @GET(value = "api/games/{game_pk}/screenshots")
+    fun getScreenshots(
+        @Path(value = "game_pk") gameId: Int,
+        @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
+    ): Single<Screenshots>
 
 }

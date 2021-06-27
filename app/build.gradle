@@ -127,4 +127,9 @@ dependencies {
 
     // AutoViewPager
     implementation 'com.github.pzienowicz:androidx-auto-scroll-view-pager:1.2.0'
+
+    // Flow RecyclerView
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+
+    implementation 'me.ithebk:barchart:0.9'
 }

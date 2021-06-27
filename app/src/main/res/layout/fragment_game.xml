@@ -177,6 +177,8 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpGameInfo"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

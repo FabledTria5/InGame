@@ -1,6 +1,7 @@
 package com.example.ingame.di.module
 
 import com.example.ingame.ui.activities.main.MainActivity
+import com.example.ingame.ui.fragments.about.AboutFragment
 import com.example.ingame.ui.fragments.calendar.CalendarFragment
 import com.example.ingame.ui.fragments.catalogue.CatalogueFragment
 import com.example.ingame.ui.fragments.collections.CollectionsFragment
@@ -41,5 +42,8 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun bindCalendarFragment(): CalendarFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindAboutFragment(): AboutFragment
 
 }

@@ -22,4 +22,7 @@ class RetrofitRepositoryImpl @Inject constructor(
     override fun getGameDetails(id: Int): Single<GameDetails> =
         apiHelper.getGameDetails(id).subscribeOn(Schedulers.io())
 
+    override fun getSnapshots(gameId: Int) =
+        apiHelper.getSnapshots(gameId).subscribeOn(Schedulers.io())
+
 }

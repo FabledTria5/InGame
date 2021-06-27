@@ -10,6 +10,9 @@ interface GameView : TabView {
     @AddToEndSingle
     fun setGameData(gameDetails: GameDetails)
 
+    @AddToEndSingle
+    fun initViewPager(gameDetails: GameDetails)
+
     @Skip
     fun openBrowser()
 }

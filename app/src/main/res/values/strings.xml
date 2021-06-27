@@ -20,6 +20,8 @@
     <string name="share_with_friends">Share with friends</string>
     <string name="remove_from_favourites">Remove from favourites</string>
     <string name="dots">…</string>
+    <string name="snapshots">Snapshots</string>
+    <string name="see_all">See all</string>
 
     <string-array name="Platforms">
         <item>Playstation 5</item>

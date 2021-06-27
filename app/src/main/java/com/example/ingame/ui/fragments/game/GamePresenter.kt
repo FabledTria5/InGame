@@ -36,8 +36,10 @@ class GamePresenter @AssistedInject constructor(
             )
     }
 
-    private fun onGetGameSuccess(gameDetails: GameDetails) =
-        viewState.setGameData(gameDetails = gameDetails)
+    private fun onGetGameSuccess(gameDetails: GameDetails) = viewState.apply {
+        setGameData(gameDetails = gameDetails)
+        initViewPager(gameDetails = gameDetails)
+    }
 
     private fun onGetGameError(throwable: Throwable) {
         println("Error")
