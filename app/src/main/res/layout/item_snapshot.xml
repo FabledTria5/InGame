@@ -6,7 +6,7 @@
 
         <variable
             name="screenshot"
-            type="com.example.ingame.data.network.model.screenshots.Result" />
+            type="com.example.ingame.data.network.model.screenshots.ScreenshotsResult" />
     </data>
 
     <com.makeramen.roundedimageview.RoundedImageView

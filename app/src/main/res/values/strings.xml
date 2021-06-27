@@ -22,13 +22,9 @@
     <string name="dots">…</string>
     <string name="snapshots">Snapshots</string>
     <string name="see_all">See all</string>
-
-    <string-array name="Platforms">
-        <item>Playstation 5</item>
-        <item>XBox Series X</item>
-        <item>Nintendo Switch</item>
-        <item>Playstation 4</item>
-        <item>PC</item>
-        <item>XBox One</item>
-    </string-array>
+    <string name="release_date">Release date:</string>
+    <string name="platforms">Platforms:</string>
+    <string name="directors">Director(s):</string>
+    <string name="writer_s">Writer(s)</string>
+    <string name="developers">Developers</string>
 </resources>

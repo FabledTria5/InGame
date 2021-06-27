@@ -13,6 +13,7 @@ import com.example.ingame.databinding.FragmentGameBinding
 import com.example.ingame.ui.adapters.viewpagers.GameInfoAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.fragments.about.AboutFragment
+import com.example.ingame.ui.fragments.info.InfoFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.arguments
 import com.example.ingame.utils.selectTab
@@ -60,7 +61,10 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
             GameInfoAdapter(
                 lifecycle = lifecycle,
                 fragmentManager = childFragmentManager,
-                fragments = arrayListOf(AboutFragment.newInstance(gameDetails = gameDetails))
+                fragments = arrayListOf(
+                    AboutFragment.newInstance(gameDetails = gameDetails),
+                    InfoFragment.newInstance(gameDetails = gameDetails)
+                )
             )
 
         TabLayoutMediator(binding.tabLayout, binding.vpGameInfo) { tab, position ->

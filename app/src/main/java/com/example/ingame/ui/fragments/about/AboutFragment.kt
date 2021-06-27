@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
-import com.example.ingame.data.network.model.screenshots.Result
+import com.example.ingame.data.network.model.screenshots.ScreenshotsResult
 import com.example.ingame.databinding.FragmentAboutBinding
 import com.example.ingame.ui.adapters.recyclerviews.SnapshotsAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
@@ -48,7 +48,11 @@ class AboutFragment : BaseDaggerFragment(), AboutView {
         return binding.root
     }
 
-    override fun setSnapshots(snapshots: List<Result>) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.gameInfo = gameDetails
+    }
+
+    override fun setSnapshots(snapshots: List<ScreenshotsResult>) {
         val coverFlowLayoutManger =
             CoverFlowLayoutManger(false, false, false, 0.7f)
         val snapshotsAdapter = SnapshotsAdapter(snapshots)

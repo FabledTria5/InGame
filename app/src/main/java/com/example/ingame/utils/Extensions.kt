@@ -3,12 +3,15 @@ package com.example.ingame.utils
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.os.Build
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.example.ingame.data.network.model.game_detail.Genre
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
 import moxy.MvpAppCompatFragment
+import java.util.stream.Collectors
 
 fun TabLayout.Tab.selectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
