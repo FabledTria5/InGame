@@ -6,5 +6,5 @@ import dagger.assisted.AssistedFactory
 
 @AssistedFactory
 interface AboutPresenterFactory {
-    fun create(@Assisted gameDetails: GameDetails) : AboutPresenter
+    fun create(@Assisted gameDetails: GameDetails?) : AboutPresenter
 }

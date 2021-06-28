@@ -28,11 +28,15 @@ class GamePresenter @AssistedInject constructor(
     }
 
     private fun loadGameData() {
+        if (gameId == -1) {
+            onGetGameError()
+            return
+        }
         disposables += retrofitRepositoryImpl.getGameDetails(gameId)
             .observeOn(schedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetGameSuccess),
-                onError = (::onGetGameError)
+                onError = { onGetGameError() }
             )
     }
 
@@ -41,7 +45,7 @@ class GamePresenter @AssistedInject constructor(
         initViewPager(gameDetails = gameDetails)
     }
 
-    private fun onGetGameError(throwable: Throwable) {
+    private fun onGetGameError() {
         println("Error")
     }
 

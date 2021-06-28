@@ -14,10 +14,9 @@ import com.example.ingame.ui.adapters.viewpagers.GameInfoAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.fragments.about.AboutFragment
 import com.example.ingame.ui.fragments.info.InfoFragment
+import com.example.ingame.ui.fragments.requirements.RequirementsFragment
 import com.example.ingame.ui.navigation.BackButtonListener
-import com.example.ingame.utils.arguments
-import com.example.ingame.utils.selectTab
-import com.example.ingame.utils.unselectTab
+import com.example.ingame.utils.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import moxy.ktx.moxyPresenter
@@ -36,7 +35,7 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     @Inject
     lateinit var gamePresenterFactory: GamePresenterFactory
 
-    private val gameId by lazy { arguments?.getInt(GAME_ID)!! }
+    private val gameId by lazy { arguments?.getInt(GAME_ID) ?: -1 }
 
     private val gamePresenter by moxyPresenter {
         gamePresenterFactory.create(gameId)
@@ -63,7 +62,11 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
                 fragmentManager = childFragmentManager,
                 fragments = arrayListOf(
                     AboutFragment.newInstance(gameDetails = gameDetails),
-                    InfoFragment.newInstance(gameDetails = gameDetails)
+                    InfoFragment.newInstance(gameDetails = gameDetails),
+                    RequirementsFragment.newInstance(
+                        requirementsMin = gameDetails.getMinRequirements(),
+                        requirementsRec = gameDetails.getRecRequirements()
+                    )
                 )
             )
 

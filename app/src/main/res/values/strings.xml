@@ -28,4 +28,7 @@
     <string name="writer_s">Writer(s)</string>
     <string name="developers">Developers</string>
     <string name="releaseDateTemplates">%1$s %2$s, %3$s</string>
+    <string name="game_info_error">Error while receiving game info</string>
+    <string name="reqs_error">Error while loading requirements</string>
+    <string name="minimum">Minimum</string>
 </resources>

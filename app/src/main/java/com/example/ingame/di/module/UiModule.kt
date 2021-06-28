@@ -11,6 +11,7 @@ import com.example.ingame.ui.fragments.home.HomeFragment
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.fragments.info.InfoFragment
 import com.example.ingame.ui.fragments.profile.ProfileFragment
+import com.example.ingame.ui.fragments.requirements.RequirementsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -49,5 +50,8 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun bindInfoFragment(): InfoFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindRequiredFragment(): RequirementsFragment
 
 }

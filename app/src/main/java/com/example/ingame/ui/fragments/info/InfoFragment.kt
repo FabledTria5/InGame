@@ -11,6 +11,7 @@ import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.databinding.FragmentInfoBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.arguments
+import com.example.ingame.utils.toast
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class InfoFragment : BaseDaggerFragment(), InfoView {
     lateinit var infoPresenterFactory: InfoPresenterFactory
 
     private val gameDetails by lazy {
-        arguments?.getSerializable(GAME_DETAILS)!! as GameDetails
+        arguments?.getSerializable(GAME_DETAILS) as GameDetails?
     }
 
     private val infoPresenter by moxyPresenter {
@@ -51,4 +52,6 @@ class InfoFragment : BaseDaggerFragment(), InfoView {
         developers = gameDevelopers
         infoLoaded = true
     }
+
+    override fun showError() = toast(getString(R.string.game_info_error))
 }

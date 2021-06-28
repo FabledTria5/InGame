@@ -13,7 +13,7 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 
 class InfoPresenter @AssistedInject constructor(
-    @Assisted private val gameDetails: GameDetails,
+    @Assisted private val gameDetails: GameDetails?,
     private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
     private val schedulers: Schedulers
 ) : MvpPresenter<InfoView>() {
@@ -25,13 +25,28 @@ class InfoPresenter @AssistedInject constructor(
         getDevelopmentTeam()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.dispose()
+    }
+
     private fun getDevelopmentTeam() {
+        if (gameDetails == null) {
+            onGetError()
+            return
+        }
+
         disposables += retrofitRepositoryImpl.getDevelopers(gameId = gameDetails.id)
             .observeOn(schedulers.main())
             .subscribeBy(
-                onSuccess = (::onGetDevelopersSuccess)
+                onSuccess = (::onGetDevelopersSuccess),
+                onError = (::onGetError)
             )
     }
+
+    private fun onGetError() = viewState.showError()
+
+    private fun onGetError(throwable: Throwable) = println(throwable.message)
 
     private fun onGetDevelopersSuccess(gameDevelopers: GameDevelopers) =
         viewState.setInfo(gameDevelopers)

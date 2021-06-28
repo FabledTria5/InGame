@@ -12,6 +12,7 @@ import com.example.ingame.databinding.FragmentAboutBinding
 import com.example.ingame.ui.adapters.recyclerviews.SnapshotsAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.arguments
+import com.example.ingame.utils.toast
 import moxy.ktx.moxyPresenter
 import recycler.coverflow.CoverFlowLayoutManger
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class AboutFragment : BaseDaggerFragment(), AboutView {
     private lateinit var binding: FragmentAboutBinding
 
     private val gameDetails by lazy {
-        arguments?.getSerializable(GAME_DETAILS)!! as GameDetails
+        arguments?.getSerializable(GAME_DETAILS)!! as GameDetails?
     }
 
     private val aboutPresenter by moxyPresenter {
@@ -62,5 +63,7 @@ class AboutFragment : BaseDaggerFragment(), AboutView {
         }
         binding.rvSnapshots.scrollToPosition(snapshotsAdapter.itemCount / 2)
     }
+
+    override fun showError() = toast(getString(R.string.game_info_error))
 
 }

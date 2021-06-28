@@ -3,16 +3,14 @@ package com.example.ingame.utils
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
-import android.os.Build
-import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.example.ingame.data.network.model.game_detail.Genre
+import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
 import moxy.MvpAppCompatFragment
-import java.util.stream.Collectors
+import java.util.*
 
 fun TabLayout.Tab.selectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
@@ -42,4 +40,24 @@ fun Fragment.arguments(vararg arguments: Pair<String, Any>): Fragment {
     return this
 }
 
-fun View.show() = run { visibility = View.VISIBLE }
+fun String.makeCapital() = replaceFirstChar { char ->
+    if (char.isLowerCase()) char.titlecase(
+        Locale.getDefault()
+    ) else this
+}
+
+fun GameDetails.getMinRequirements(): String {
+    platforms.forEach { platforms ->
+        if (platforms.platform.name == "PC")
+            return platforms.requirements.minimum.dropWhile { it != ' ' }
+    }
+    return ""
+}
+
+fun GameDetails.getRecRequirements(): String {
+    platforms.forEach { platforms ->
+        if (platforms.platform.name == "PC" && platforms.requirements.recommended != null)
+            return platforms.requirements.recommended.dropWhile { it != ' ' }
+    }
+    return ""
+}

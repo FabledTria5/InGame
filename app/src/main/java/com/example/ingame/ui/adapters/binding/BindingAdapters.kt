@@ -12,6 +12,7 @@ import com.example.ingame.data.network.model.common.Platforms
 import com.example.ingame.data.network.model.game_detail.Developer
 import com.example.ingame.data.network.model.game_detail.Genre
 import com.example.ingame.data.network.model.game_developers.DevelopersResult
+import com.example.ingame.utils.makeCapital
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
@@ -141,7 +142,7 @@ fun setDevelopers(textView: TextView, developers: List<Developer>?) {
 fun setTextFromHtml(textView: TextView, text: String?) {
     if (text.isNullOrEmpty()) return
     textView.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Html.fromHtml(text, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
+        Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
     } else {
         Html.fromHtml(text)
     }
@@ -156,7 +157,8 @@ fun setReleaseDate(textView: TextView, releaseDate: String?) {
             ?.also {
                 textView.text = textView.context.getString(
                     R.string.releaseDateTemplates,
-                    DateFormatSymbols.getInstance().months[(it.split("-")[1].toInt()) - 1],
+                    DateFormatSymbols.getInstance()
+                        .months[(it.split("-")[1].toInt()) - 1].makeCapital(),
                     it.takeLast(2),
                     it.take(4)
                 )
