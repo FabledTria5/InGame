@@ -1,6 +1,6 @@
 package com.example.ingame.data.network.model.screenshots
 
-data class Screenshots(
+data class Snapshots(
     val count: Int,
     val next: String,
     val previous: String,

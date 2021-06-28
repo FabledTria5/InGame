@@ -16,4 +16,6 @@ class ApiHelperImpl @Inject constructor(
 
     override fun getSnapshots(gameId: Int) = apiService.getScreenshots(gameId = gameId)
 
+    override fun getDevelopers(gameId: Int) = apiService.getDevelopers(gameId = gameId)
+
 }

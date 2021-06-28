@@ -11,6 +11,12 @@
         <variable
             name="developers"
             type="com.example.ingame.data.network.model.game_developers.GameDevelopers" />
+
+        <variable
+            name="infoLoaded"
+            type="Boolean" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -20,6 +26,25 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{infoLoaded ? View.GONE : View.VISIBLE, default=visible}"
+                app:indicatorColor="@color/CornFlowerBlue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{infoLoaded ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+                app:constraint_referenced_ids="textView5, textView4, barrier, tvPlatforms,
+                tvDevelopers, tvReleaseDate, tvDirectors, tvWriters, textView6, textView7, textView3" />
 
             <TextView
                 android:id="@+id/textView3"

@@ -2,7 +2,9 @@ package com.example.ingame.data.network.repository
 
 import com.example.ingame.data.network.api.ApiHelper
 import com.example.ingame.data.network.model.game_detail.GameDetails
+import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.data.network.model.games_list.GamesList
+import com.example.ingame.data.network.model.screenshots.Snapshots
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -22,7 +24,10 @@ class RetrofitRepositoryImpl @Inject constructor(
     override fun getGameDetails(id: Int): Single<GameDetails> =
         apiHelper.getGameDetails(id).subscribeOn(Schedulers.io())
 
-    override fun getSnapshots(gameId: Int) =
+    override fun getSnapshots(gameId: Int): Single<Snapshots> =
         apiHelper.getSnapshots(gameId).subscribeOn(Schedulers.io())
+
+    override fun getDevelopers(gameId: Int): Single<GameDevelopers> =
+        apiHelper.getDevelopers(gameId).subscribeOn(Schedulers.io())
 
 }

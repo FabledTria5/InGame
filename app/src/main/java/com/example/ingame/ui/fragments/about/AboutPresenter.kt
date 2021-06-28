@@ -1,7 +1,7 @@
 package com.example.ingame.ui.fragments.about
 
 import com.example.ingame.data.network.model.game_detail.GameDetails
-import com.example.ingame.data.network.model.screenshots.Screenshots
+import com.example.ingame.data.network.model.screenshots.Snapshots
 import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.ui.schedulers.Schedulers
 import dagger.assisted.Assisted
@@ -33,6 +33,6 @@ class AboutPresenter @AssistedInject constructor(
         println(throwable.message)
     }
 
-    private fun onSnapshotsGetSuccess(screenshots: Screenshots) =
-        viewState.setSnapshots(snapshots = screenshots.results)
+    private fun onSnapshotsGetSuccess(snapshots: Snapshots) =
+        viewState.setSnapshots(snapshots = snapshots.results)
 }

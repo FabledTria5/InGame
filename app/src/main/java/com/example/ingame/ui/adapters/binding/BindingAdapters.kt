@@ -1,6 +1,5 @@
 package com.example.ingame.ui.adapters.binding
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.text.TextUtils
@@ -8,10 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.ingame.R
 import com.example.ingame.data.network.model.common.Platforms
 import com.example.ingame.data.network.model.game_detail.Developer
 import com.example.ingame.data.network.model.game_detail.Genre
 import com.example.ingame.data.network.model.game_developers.DevelopersResult
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -23,7 +24,6 @@ fun loadImage(view: ImageView, url: String?) {
     }
 }
 
-@SuppressLint("SetTextI18n")
 @BindingAdapter("platforms")
 fun setPlatforms(textView: TextView, platforms: List<Platforms>?) {
     if (platforms.isNullOrEmpty()) return
@@ -57,8 +57,8 @@ fun setGenres(textView: TextView, genres: List<Genre>?) {
             strings.add(genre.name)
         }
         strings
-    }.also { genres ->
-        textView.text = TextUtils.join(", ", genres)
+    }.also { genresNames ->
+        textView.text = TextUtils.join(", ", genresNames)
     }
 }
 
@@ -68,6 +68,7 @@ fun setDirectors(textView: TextView, developers: List<DevelopersResult>?) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         developers
             .stream()
+            .limit(2)
             .map {
                 it.positions.map { position ->
                     position.name == "director"
@@ -83,7 +84,7 @@ fun setDirectors(textView: TextView, developers: List<DevelopersResult>?) {
                 else strings.add(director.name)
             }
         }
-        strings
+        strings.subList(0, 2)
     }.also { names ->
         textView.text = TextUtils.join(", ", names)
     }
@@ -95,6 +96,7 @@ fun setWriters(textView: TextView, developers: List<DevelopersResult>?) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         developers
             .stream()
+            .limit(3)
             .map {
                 it.positions.map { position ->
                     position.name == "writer"
@@ -110,7 +112,7 @@ fun setWriters(textView: TextView, developers: List<DevelopersResult>?) {
                 else strings.add(director.name)
             }
         }
-        strings
+        strings.subList(0, 3)
     }.also { names ->
         textView.text = TextUtils.join(", ", names)
     }
@@ -148,11 +150,16 @@ fun setTextFromHtml(textView: TextView, text: String?) {
 @BindingAdapter("releaseDate")
 fun setReleaseDate(textView: TextView, releaseDate: String?) {
     if (releaseDate.isNullOrEmpty()) return
-    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(releaseDate)
-        .also { (Calendar.getInstance()::setTime) }
-        .let {
-            (Calendar.getInstance()
-                .getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))
-        }
-        .let(textView::setText)
+    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
+        parse(releaseDate)
+            ?.let(::format)
+            ?.also {
+                textView.text = textView.context.getString(
+                    R.string.releaseDateTemplates,
+                    DateFormatSymbols.getInstance().months[(it.split("-")[1].toInt()) - 1],
+                    it.takeLast(2),
+                    it.take(4)
+                )
+            }
+    }
 }

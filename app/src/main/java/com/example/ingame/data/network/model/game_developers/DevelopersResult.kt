@@ -1,11 +1,14 @@
 package com.example.ingame.data.network.model.game_developers
 
+import com.google.gson.annotations.SerializedName
+
 data class DevelopersResult(
-    val games_count: Int,
+    @SerializedName("id")
     val id: Int,
-    val image: String,
-    val image_background: String,
+    @SerializedName("image")
+    val image: String?,
+    @SerializedName("name")
     val name: String,
+    @SerializedName("positions")
     val positions: List<Position>,
-    val slug: String
 )

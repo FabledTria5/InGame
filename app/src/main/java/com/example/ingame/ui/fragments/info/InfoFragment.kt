@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
+import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.databinding.FragmentInfoBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.arguments
@@ -45,8 +46,9 @@ class InfoFragment : BaseDaggerFragment(), InfoView {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.gameInfo = gameDetails
+    override fun setInfo(gameDevelopers: GameDevelopers) = binding.run {
+        gameInfo = gameDetails
+        developers = gameDevelopers
+        infoLoaded = true
     }
-
 }
