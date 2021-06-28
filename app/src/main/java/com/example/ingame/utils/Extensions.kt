@@ -41,9 +41,7 @@ fun Fragment.arguments(vararg arguments: Pair<String, Any>): Fragment {
 }
 
 fun String.makeCapital() = replaceFirstChar { char ->
-    if (char.isLowerCase()) char.titlecase(
-        Locale.getDefault()
-    ) else this
+    if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString()
 }
 
 fun GameDetails.getMinRequirements(): String {
