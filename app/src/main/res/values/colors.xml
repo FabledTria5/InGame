@@ -17,4 +17,7 @@
     <color name="CornFlowerBlue">#61a2d3</color>
     <color name="Turquoise">#26e3ec</color>
 
+    <color name="main_gradient_start">#2de1f3</color>
+    <color name="main_gradient_end">#747efb</color>
+
 </resources>

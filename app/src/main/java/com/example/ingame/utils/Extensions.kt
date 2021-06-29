@@ -1,11 +1,12 @@
 package com.example.ingame.utils
 
-import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
@@ -21,7 +22,10 @@ fun TabLayout.Tab.selectTab() {
         0f,
         width,
         textView.textSize,
-        intArrayOf(Color.parseColor("#2de1f3"), Color.parseColor("#747efb")),
+        intArrayOf(
+            ContextCompat.getColor(textView.context, R.color.main_gradient_start),
+            ContextCompat.getColor(textView.context, R.color.main_gradient_end)
+        ),
         null, Shader.TileMode.CLAMP
     )
     textView.paint.shader = textShader
