@@ -12,10 +12,9 @@ import com.example.ingame.data.network.model.common.Platforms
 import com.example.ingame.data.network.model.game_detail.Developer
 import com.example.ingame.data.network.model.game_detail.Genre
 import com.example.ingame.data.network.model.game_developers.DevelopersResult
+import com.example.ingame.utils.DateFormatter
 import com.example.ingame.utils.makeCapital
 import java.text.DateFormatSymbols
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.stream.Collectors
 
 @BindingAdapter("imageUrl")
@@ -151,17 +150,13 @@ fun setTextFromHtml(textView: TextView, text: String?) {
 @BindingAdapter("releaseDate")
 fun setReleaseDate(textView: TextView, releaseDate: String?) {
     if (releaseDate.isNullOrEmpty()) return
-    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
-        parse(releaseDate)
-            ?.let(::format)
-            ?.also {
-                textView.text = textView.context.getString(
-                    R.string.releaseDateTemplates,
-                    DateFormatSymbols.getInstance()
-                        .months[(it.split("-")[1].toInt()) - 1].makeCapital(),
-                    it.takeLast(2),
-                    it.take(4)
-                )
-            }
+    val dateFormatter = DateFormatter
+    dateFormatter.convertDateToApiForm(releaseDate).also { formattedDate ->
+        textView.text = textView.context.getString(
+            R.string.releaseDateTemplates,
+            dateFormatter.getMonthName(formattedDate),
+            formattedDate.takeLast(2),
+            formattedDate.take(4)
+        )
     }
 }
