@@ -13,8 +13,6 @@ import com.example.ingame.data.network.model.game_detail.Developer
 import com.example.ingame.data.network.model.game_detail.Genre
 import com.example.ingame.data.network.model.game_developers.DevelopersResult
 import com.example.ingame.utils.DateFormatter
-import com.example.ingame.utils.makeCapital
-import java.text.DateFormatSymbols
 import java.util.stream.Collectors
 
 @BindingAdapter("imageUrl")
