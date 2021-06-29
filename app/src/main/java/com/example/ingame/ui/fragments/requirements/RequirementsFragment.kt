@@ -35,6 +35,7 @@ class RequirementsFragment : BaseDaggerFragment(), RequirementsView {
     private val requirementsMin by lazy { arguments?.getString(REQUIREMENTS_MIN) ?: "" }
     private val requirementsRec by lazy { arguments?.getString(REQUIREMENTS_REC) ?: "" }
 
+    @Suppress("unused")
     private val requirementsPresenter by moxyPresenter {
         requirementsPresenterFactory.create(Pair(requirementsMin, requirementsRec))
     }
@@ -57,7 +58,6 @@ class RequirementsFragment : BaseDaggerFragment(), RequirementsView {
 
     override fun showEmptyRequirements() = binding.run {
         dataIsEmpty = true
-        dataLoaded = true
     }
 
     override fun showError() = toast(getString(R.string.reqs_error))

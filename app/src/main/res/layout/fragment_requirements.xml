@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
-                android:visibility="@{DataLoaded ? View.GONE : View.VISIBLE, default=visible}"
+                android:visibility="@{DataLoaded || DataIsEmpty ? View.GONE : View.VISIBLE, default=visible}"
                 app:indicatorColor="@color/CornFlowerBlue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
-                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=visible}"
+                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=gone}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,7 +97,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
-                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=visible}"
+                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=gone}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMinimum" />
 
