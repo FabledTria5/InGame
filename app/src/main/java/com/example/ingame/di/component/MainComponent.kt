@@ -2,10 +2,7 @@ package com.example.ingame.di.component
 
 import android.content.Context
 import com.example.ingame.MainApplication
-import com.example.ingame.di.module.DataModule
-import com.example.ingame.di.module.NavigationModule
-import com.example.ingame.di.module.NetworkModule
-import com.example.ingame.di.module.UiModule
+import com.example.ingame.di.module.*
 import com.example.ingame.ui.schedulers.Schedulers
 import dagger.BindsInstance
 import dagger.Component
@@ -20,7 +17,8 @@ import javax.inject.Singleton
         DataModule::class,
         NavigationModule::class,
         NetworkModule::class,
-        UiModule::class
+        UiModule::class,
+        UtilsModule::class,
     ]
 )
 interface MainComponent : AndroidInjector<MainApplication> {

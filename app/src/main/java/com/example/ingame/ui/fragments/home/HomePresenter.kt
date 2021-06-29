@@ -4,6 +4,7 @@ import com.example.ingame.data.network.model.games_list.GamesList
 import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.utils.DateFormatter
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -15,6 +16,7 @@ class HomePresenter @AssistedInject constructor(
     private val schedulers: Schedulers,
     private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
     private val router: Router,
+    private val dateFormatter: DateFormatter
 ) :
     MvpPresenter<HomeView>() {
 
@@ -37,7 +39,7 @@ class HomePresenter @AssistedInject constructor(
     private fun getSliderGames() {
         disposables += retrofitRepositoryImpl.getListOfGames(
             page = 1,
-            "2021-06-29",
+            updated = dateFormatter.getToday(),
             pageSize = 5
         )
             .observeOn(schedulers.main())
