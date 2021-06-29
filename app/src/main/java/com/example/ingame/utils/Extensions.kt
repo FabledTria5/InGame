@@ -50,7 +50,7 @@ fun String.makeCapital() = replaceFirstChar { char ->
 
 fun GameDetails.getMinRequirements(): String {
     platforms.forEach { platforms ->
-        if (platforms.platform.name == "PC")
+        if (platforms.platform.name == "PC" && platforms.requirements.minimum != null)
             return platforms.requirements.minimum.dropWhile { it != ' ' }
     }
     return ""

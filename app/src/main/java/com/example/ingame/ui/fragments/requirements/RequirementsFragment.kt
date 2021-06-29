@@ -55,6 +55,11 @@ class RequirementsFragment : BaseDaggerFragment(), RequirementsView {
         dataLoaded = true
     }
 
+    override fun showEmptyRequirements() = binding.run {
+        dataIsEmpty = true
+        dataLoaded = true
+    }
+
     override fun showError() = toast(getString(R.string.reqs_error))
 
 }

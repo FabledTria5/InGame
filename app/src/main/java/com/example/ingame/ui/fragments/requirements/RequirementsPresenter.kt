@@ -14,9 +14,11 @@ constructor(@Assisted private val requirements: Pair<String, String>) :
     }
 
     private fun showRequirements() {
-        if (requirements.first.isNotEmpty() and requirements.second.isNotEmpty()) {
+        if (requirements.first.isNotEmpty() and requirements.second.isNotEmpty())
             viewState.showRequirements(requirements)
-        } else if (requirements.second.isEmpty()) {
+        else if (requirements.first.isEmpty() and requirements.second.isEmpty())
+            viewState.showEmptyRequirements()
+        else if (requirements.second.isEmpty()) {
             if (requirements.first.contains("Recommended")) {
                 viewState.showRequirements(
                     Pair(

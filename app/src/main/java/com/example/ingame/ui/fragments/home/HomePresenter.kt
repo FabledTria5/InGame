@@ -10,7 +10,6 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
-import kotlin.random.Random
 
 class HomePresenter @AssistedInject constructor(
     private val schedulers: Schedulers,
@@ -38,7 +37,7 @@ class HomePresenter @AssistedInject constructor(
     private fun getSliderGames() {
         disposables += retrofitRepositoryImpl.getListOfGames(
             page = 1,
-            "2021-05-01,2021-06-01",
+            "2021-06-29",
             pageSize = 5
         )
             .observeOn(schedulers.main())

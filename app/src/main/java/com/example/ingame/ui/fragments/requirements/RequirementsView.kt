@@ -8,4 +8,7 @@ interface RequirementsView : ErrorView {
     @AddToEndSingle
     fun showRequirements(requirements: Pair<String, String>)
 
+    @AddToEndSingle
+    fun showEmptyRequirements()
+
 }

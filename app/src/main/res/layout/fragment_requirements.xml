@@ -16,6 +16,10 @@
             name="DataLoaded"
             type="Boolean" />
 
+        <variable
+            name="DataIsEmpty"
+            type="Boolean" />
+
         <import type="android.view.View" />
     </data>
 
@@ -28,6 +32,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/circularProgressIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
@@ -45,6 +50,21 @@
                 app:constraint_referenced_ids="tvMinimum,tvRecommended,textView9,textView8" />
 
             <TextView
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="@string/unfortunately_we_can_not_show_system_requirements_for_this_game"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:visibility="@{DataIsEmpty ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,6 +73,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
+                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=visible}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,10 +93,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                android:text="Recommended"
+                android:text="@string/recommended"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
+                android:visibility="@{DataIsEmpty ? View.GONE : View.VISIBLE, default=visible}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMinimum" />
 

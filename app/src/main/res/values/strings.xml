@@ -31,4 +31,5 @@
     <string name="game_info_error">Error while receiving game info</string>
     <string name="reqs_error">Error while loading requirements</string>
     <string name="minimum">Minimum</string>
+    <string name="unfortunately_we_can_not_show_system_requirements_for_this_game">Unfortunately, we can not show system requirements for this game</string>
 </resources>

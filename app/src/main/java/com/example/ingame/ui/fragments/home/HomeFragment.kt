@@ -110,9 +110,9 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
         TabLayoutMediator(binding.tabLayout, binding.vpGames) { tab, position ->
             when (position) {
-                0 -> tab.setText(R.string.recommended)
-                1 -> tab.setText(R.string.popular)
-                2 -> tab.setText(R.string.new_tab)
+                0 -> tab.text = getString(R.string.recommended)
+                1 -> tab.text = getString(R.string.popular)
+                2 -> tab.text = getString(R.string.new_tab)
             }
         }.attach()
 
