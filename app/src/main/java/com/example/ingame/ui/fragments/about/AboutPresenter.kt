@@ -2,7 +2,7 @@ package com.example.ingame.ui.fragments.about
 
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.screenshots.Snapshots
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
+import com.example.ingame.data.repository.GamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -13,7 +13,7 @@ import moxy.MvpPresenter
 
 class AboutPresenter @AssistedInject constructor(
     @Assisted private val gameDetails: GameDetails?,
-    private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
+    private val gamesRepository: GamesRepository,
     private val schedulers: Schedulers
 ) : MvpPresenter<AboutView>() {
 
@@ -35,7 +35,7 @@ class AboutPresenter @AssistedInject constructor(
             return
         }
 
-        disposables += retrofitRepositoryImpl.getSnapshots(gameId = gameDetails.id)
+        disposables += gamesRepository.getSnapshots(gameId = gameDetails.id)
             .observeOn(schedulers.main())
             .subscribeBy(
                 onSuccess = (::onSnapshotsGetSuccess),

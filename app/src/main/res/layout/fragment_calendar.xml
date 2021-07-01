@@ -6,20 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.kizitonwose.calendarview.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:cv_dayViewResource="@layout/calendar_day_layout"
-            app:cv_orientation="horizontal"
-            app:cv_scrollMode="paged"
-            app:cv_outDateStyle="endOfRow"
-            app:cv_inDateStyle="allMonths"
-            app:cv_monthHeaderResource="@layout/month_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

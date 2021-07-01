@@ -9,7 +9,6 @@ import com.example.ingame.R
 import com.example.ingame.databinding.FragmentProfileBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
-import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 

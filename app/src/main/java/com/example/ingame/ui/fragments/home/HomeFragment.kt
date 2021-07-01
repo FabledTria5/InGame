@@ -12,7 +12,6 @@ import com.example.ingame.databinding.FragmentHomeBinding
 import com.example.ingame.ui.adapters.viewpagers.GamesListAdapter
 import com.example.ingame.ui.adapters.viewpagers.HotGamesAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
-import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
@@ -70,11 +69,11 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
     override fun showError() = toast("Error while receiving games. Try again later")
 
-    override fun setupSlider(arrayList: ArrayList<HotGameFragment>) {
+    override fun setupSlider(hotGamesIds: List<Int>) {
         binding.vpHotGames.apply {
             setInterval(HOT_GAMES_TICK_RATE)
             setScrollDurationFactor(2.0)
-            adapter = HotGamesAdapter(arrayList, childFragmentManager)
+            adapter = HotGamesAdapter(hotGamesIds, childFragmentManager)
             addOnPageChangeListener(object : OnPageChangeListener {
 
                 override fun onPageScrolled(

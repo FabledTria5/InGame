@@ -1,8 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
-import com.example.ingame.data.network.model.games_list.GamesList
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
-import com.example.ingame.ui.fragments.hot_game.HotGameFragment
+import com.example.ingame.data.repository.GamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
 import com.example.ingame.utils.DateFormatter
 import com.github.terrakok.cicerone.Router
@@ -14,7 +12,7 @@ import moxy.MvpPresenter
 
 class HomePresenter @AssistedInject constructor(
     private val schedulers: Schedulers,
-    private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
+    private val gamesRepository: GamesRepository,
     private val router: Router,
     private val dateFormatter: DateFormatter
 ) :
@@ -37,7 +35,7 @@ class HomePresenter @AssistedInject constructor(
     }
 
     private fun getSliderGames() {
-        disposables += retrofitRepositoryImpl.getListOfGames(
+        disposables += gamesRepository.getListOfGames(
             page = 1,
             updated = dateFormatter.getToday(),
             pageSize = 5
@@ -45,21 +43,15 @@ class HomePresenter @AssistedInject constructor(
             .observeOn(schedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetSliderGamesSuccess),
-                onError = { onGetSliderGamesError() }
+                onError = (::onGetSliderGamesError)
             )
     }
 
-    private fun onGetSliderGamesSuccess(gamesList: GamesList) {
-        val arrayOfSliderFragments = arrayListOf<HotGameFragment>()
-        gamesList.results.forEach { result ->
-            arrayOfSliderFragments.add(
-                HotGameFragment.newInstance(result) as HotGameFragment
-            )
-        }
-        viewState.setupSlider(arrayOfSliderFragments)
-    }
+    private fun onGetSliderGamesSuccess(hotGamesIds: List<Int>) = viewState.setupSlider(hotGamesIds)
 
-    private fun onGetSliderGamesError() = viewState.showError()
+    private fun onGetSliderGamesError(t: Throwable) {
+        viewState.showError()
+    }
 
     fun backPressed(): Boolean {
         router.exit()

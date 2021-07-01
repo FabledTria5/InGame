@@ -1,7 +1,7 @@
 package com.example.ingame.ui.fragments.game
 
 import com.example.ingame.data.network.model.game_detail.GameDetails
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
+import com.example.ingame.data.repository.GamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.Assisted
@@ -14,7 +14,7 @@ import moxy.MvpPresenter
 class GamePresenter @AssistedInject constructor(
     @Assisted(value = "gameId") private val gameId: Int,
     private val router: Router,
-    private val retrofitRepositoryImpl: RetrofitRepositoryImpl,
+    private val gamesRepository: GamesRepository,
     private val schedulers: Schedulers
 ) :
     MvpPresenter<GameView>() {
@@ -32,7 +32,7 @@ class GamePresenter @AssistedInject constructor(
             onGetGameError()
             return
         }
-        disposables += retrofitRepositoryImpl.getGameDetails(gameId)
+        disposables += gamesRepository.getGameDetails(gameId)
             .observeOn(schedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetGameSuccess),

@@ -2,11 +2,13 @@ package com.example.ingame.utils
 
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.ingame.R
+import com.example.ingame.data.network.model.common.Platforms
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
@@ -62,4 +64,12 @@ fun GameDetails.getRecRequirements(): String {
             return platforms.requirements.recommended.dropWhile { it != ' ' }
     }
     return ""
+}
+
+fun List<Platforms>.getNamesWhile(platformsCount: Int): String {
+    val strings = arrayListOf<String>()
+    for (platform in this.take(platformsCount)) {
+        strings.add(platform.platform.name)
+    }
+    return TextUtils.join(", ", strings)
 }

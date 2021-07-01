@@ -1,3 +1,5 @@
+@file:Suppress("unused", "unused")
+
 package com.example.ingame.ui.fragments.about
 
 import android.os.Bundle

@@ -11,7 +11,7 @@ class HomeGamesListAdapter : RecyclerView.Adapter<HomeGamesListAdapter.HomeGames
 
     private val gamesList = arrayListOf<String>()
 
-    inner class HomeGamesListViewHolder(private val binding: ItemHomeGamesListBinding) :
+    inner class HomeGamesListViewHolder(binding: ItemHomeGamesListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {

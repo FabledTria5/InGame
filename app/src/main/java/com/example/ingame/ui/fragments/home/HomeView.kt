@@ -1,7 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
 import com.example.ingame.ui.base.TabView
-import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.Skip
 
@@ -19,5 +18,5 @@ interface HomeView : TabView {
     fun showError()
 
     @AddToEndSingle
-    fun setupSlider(arrayList: ArrayList<HotGameFragment>)
+    fun setupSlider(hotGamesIds: List<Int>)
 }
