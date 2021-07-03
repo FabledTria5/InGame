@@ -5,6 +5,6 @@ import dagger.assisted.AssistedFactory
 @AssistedFactory
 interface HomePresenterFactory {
 
-    fun create() : HomePresenter
+    fun create(): HomePresenter
 
 }

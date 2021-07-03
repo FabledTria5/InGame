@@ -19,6 +19,7 @@ import javax.inject.Singleton
         NetworkModule::class,
         UiModule::class,
         UtilsModule::class,
+        AppModule::class
     ]
 )
 interface MainComponent : AndroidInjector<MainApplication> {

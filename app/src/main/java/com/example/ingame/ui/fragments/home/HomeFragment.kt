@@ -1,5 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
+import com.example.ingame.utils.Constants.PREFERENCE_DATE
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.toast
 import com.example.ingame.utils.unselectTab
@@ -27,6 +29,9 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
     @Inject
     lateinit var homePresenterFactory: HomePresenterFactory
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -68,6 +73,13 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun showError() = toast("Error while receiving games. Try again later")
+
+    override fun updateDate(newDate: String) {
+        sharedPreferences.edit().apply {
+            putString(PREFERENCE_DATE, newDate)
+            apply()
+        }
+    }
 
     override fun setupSlider(hotGamesIds: List<Int>) {
         binding.vpHotGames.apply {
@@ -129,11 +141,11 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun selectPageText(page: Int) {
-       binding.tabLayout.getTabAt(page)?.selectTab()
+        binding.tabLayout.getTabAt(page)?.selectTab()
     }
 
     override fun unselectPageText(page: Int) {
-         binding.tabLayout.getTabAt(page)?.unselectTab()
+        binding.tabLayout.getTabAt(page)?.unselectTab()
     }
 
     override fun backPressed() = homePresenter.backPressed()

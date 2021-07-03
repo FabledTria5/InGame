@@ -7,6 +7,7 @@ import com.example.ingame.data.db.helper.DBHelper
 import com.example.ingame.data.db.helper.IDBHelper
 import com.example.ingame.data.network.api.ApiHelper
 import com.example.ingame.data.repository.GamesRepository
+import com.example.ingame.data.repository.IGamesRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,6 +31,6 @@ class DataModule {
     fun provideGamesRepository(
         apiHelper: ApiHelper,
         dbHelper: IDBHelper
-    ): GamesRepository = GamesRepository(apiHelper, dbHelper)
+    ): IGamesRepository = GamesRepository(apiHelper, dbHelper)
 
 }

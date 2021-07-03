@@ -14,9 +14,12 @@ interface HomeView : TabView {
     @AddToEndSingle
     fun setupGamesViewPager()
 
+    @AddToEndSingle
+    fun setupSlider(hotGamesIds: List<Int>)
+
     @Skip
     fun showError()
 
-    @AddToEndSingle
-    fun setupSlider(hotGamesIds: List<Int>)
+    @Skip
+    fun updateDate(newDate: String)
 }

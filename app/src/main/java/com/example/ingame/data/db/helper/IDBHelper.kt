@@ -1,6 +1,7 @@
 package com.example.ingame.data.db.helper
 
 import com.example.ingame.data.db.model.HotGame
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface IDBHelper {
@@ -8,4 +9,6 @@ interface IDBHelper {
     fun getHotGameById(id: Int): Single<HotGame>
 
     fun fetchHotGames(hotGames: List<HotGame>): Single<List<Int>>
+
+    fun clearHotGamesCache(): Completable
 }

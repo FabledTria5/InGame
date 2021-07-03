@@ -1,20 +1,21 @@
 package com.example.ingame.ui.fragments.home
 
-import com.example.ingame.data.repository.GamesRepository
+import com.example.ingame.data.repository.IGamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
-import com.example.ingame.utils.DateFormatter
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
+import javax.inject.Named
 
 class HomePresenter @AssistedInject constructor(
+    @Named(value = "today") private val today: String,
+    @Named(value = "lastKnownDate") private val lastKnownDate: String,
     private val schedulers: Schedulers,
-    private val gamesRepository: GamesRepository,
+    private val gamesRepository: IGamesRepository,
     private val router: Router,
-    private val dateFormatter: DateFormatter
 ) :
     MvpPresenter<HomeView>() {
 
@@ -35,21 +36,39 @@ class HomePresenter @AssistedInject constructor(
     }
 
     private fun getSliderGames() {
-        disposables += gamesRepository.getListOfGames(
-            page = 1,
-            updated = dateFormatter.getToday(),
-            pageSize = 5
-        )
-            .observeOn(schedulers.main())
-            .subscribeBy(
-                onSuccess = (::onGetSliderGamesSuccess),
-                onError = (::onGetSliderGamesError)
-            )
+        if (today == lastKnownDate)
+            disposables += getCachedGames()
+                .observeOn(schedulers.main())
+                .subscribeBy(
+                    onSuccess = (::onGetSliderGamesSuccess),
+                    onError = { onGetSliderGamesError() }
+                )
+        else {
+            disposables += getNewListOfGames()
+                .observeOn(schedulers.main())
+                .subscribeBy(
+                    onSuccess = (::onGetSliderGamesSuccess),
+                    onError = { onGetSliderGamesError() }
+                )
+            viewState.updateDate(today)
+        }
     }
+
+    private fun getCachedGames() = gamesRepository.getListOfGames(
+        page = 1,
+        updated = today,
+        pageSize = 5
+    )
+
+    private fun getNewListOfGames() = gamesRepository.getNewListOfGames(
+        page = 1,
+        updated = today,
+        pageSize = 5
+    )
 
     private fun onGetSliderGamesSuccess(hotGamesIds: List<Int>) = viewState.setupSlider(hotGamesIds)
 
-    private fun onGetSliderGamesError(t: Throwable) {
+    private fun onGetSliderGamesError() {
         viewState.showError()
     }
 
