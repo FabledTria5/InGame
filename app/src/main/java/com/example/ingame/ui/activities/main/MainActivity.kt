@@ -14,7 +14,6 @@ import com.google.android.material.navigation.NavigationBarView
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-
 class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSelectedListener {
 
     @Inject
@@ -41,16 +40,7 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
             ?: router.newRootScreen(screens.home())
         binding.bottomNavigation.setOnItemSelectedListener(this)
         binding.bottomNavigation.itemIconTintList = null
-
-//        showTranslucentAppBar()
     }
-
-//    @Suppress("DEPRECATION")
-//    private fun showTranslucentAppBar() = this.window.apply {
-//        addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//        statusBarColor = Color.TRANSPARENT
-//    }
 
     override fun onResumeFragments() {
         super.onResumeFragments()

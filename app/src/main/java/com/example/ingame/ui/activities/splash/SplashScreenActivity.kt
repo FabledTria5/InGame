@@ -18,7 +18,6 @@ class SplashScreenActivity : MvpAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(

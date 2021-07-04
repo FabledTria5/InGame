@@ -128,4 +128,6 @@ dependencies {
 
     // Flow RecyclerView
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
 }
