@@ -19,6 +19,8 @@ class DBHelper @Inject constructor(
 
     override fun getPlatformsNames() = gamesDao.getPlatformsNames()
 
+    override fun getPlatformByName(platformName: String) = gamesDao.getPlatformByName(platformName)
+
     override fun fetchHotGames(hotGames: List<HotGame>): Single<List<Int>> = gamesDao
         .insertHotGames(hotGames)
         .andThen(getHotGames())

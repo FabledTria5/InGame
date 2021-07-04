@@ -129,5 +129,6 @@ dependencies {
     // Flow RecyclerView
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
 
-    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    // Fragments
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha04"
 }

@@ -7,4 +7,7 @@ object Constants {
 
     const val APP_PREFERENCES = "app_preferences"
     const val PREFERENCE_DATE = "date"
+
+    const val RESULT_SELECTED_PLATFORM = "result_selected_platform"
+    const val SELECTED_PLATFORM = "selected_platform"
 }

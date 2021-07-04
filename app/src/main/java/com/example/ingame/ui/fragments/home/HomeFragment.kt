@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
 import com.example.ingame.R
@@ -18,6 +20,8 @@ import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
 import com.example.ingame.utils.Constants.PREFERENCE_DATE
+import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
+import com.example.ingame.utils.Constants.SELECTED_PLATFORM
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.toast
 import com.example.ingame.utils.unselectTab
@@ -116,7 +120,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
         binding.hotGamesLoaded = true
     }
 
-    override fun setupPlatformsList(platforms: List<String>, position: Int) {
+    override fun setupPlatformsList(platforms: List<String>) {
         binding.actvPlatforms.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -125,13 +129,22 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
             )
         )
         binding.actvPlatforms.setText(
-            binding.actvPlatforms.adapter.getItem(position).toString(),
+            binding.actvPlatforms.adapter.getItem(homePresenter.platformsListPosition).toString(),
             false
         )
-        binding.actvPlatforms.setOnItemClickListener { _, _, itemPosition, _ ->
-            homePresenter.onPlatformSelected(itemPosition)
+
+        binding.actvPlatforms.apply {
+            setOnItemClickListener { _, _, itemPosition, _ ->
+                homePresenter.onPlatformSelected(
+                    itemPosition,
+                    adapter.getItem(homePresenter.platformsListPosition).toString()
+                )
+            }
         }
     }
+
+    override fun setCurrentPlatform(platformId: Int) =
+        setFragmentResult(RESULT_SELECTED_PLATFORM, bundleOf(SELECTED_PLATFORM to platformId))
 
     override fun setupGamesViewPager() {
         binding.vpGames.adapter =

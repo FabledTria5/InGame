@@ -18,7 +18,10 @@ interface HomeView : TabView {
     fun setupSlider(hotGamesIds: List<Int>)
 
     @AddToEndSingle
-    fun setupPlatformsList(platforms: List<String>, position: Int)
+    fun setupPlatformsList(platforms: List<String>)
+
+    @AddToEndSingle
+    fun setCurrentPlatform(platformId: Int)
 
     @Skip
     fun showError()

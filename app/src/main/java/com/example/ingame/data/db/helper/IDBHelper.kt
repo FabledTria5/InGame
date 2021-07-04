@@ -9,6 +9,7 @@ interface IDBHelper {
     fun getHotGames(): Single<List<Int>>
     fun getHotGameById(id: Int): Single<HotGame>
     fun getPlatformsNames(): Single<List<String>>
+    fun getPlatformByName(platformName: String): Single<Int>
 
     fun fetchHotGames(hotGames: List<HotGame>): Single<List<Int>>
     fun fetchPlatforms(platforms: List<Platform>): Single<List<String>>

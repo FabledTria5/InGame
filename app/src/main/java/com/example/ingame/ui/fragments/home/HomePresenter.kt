@@ -1,6 +1,5 @@
 package com.example.ingame.ui.fragments.home
 
-import com.example.ingame.data.network.model.platforms.Platforms
 import com.example.ingame.data.repository.IGamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
 import com.github.terrakok.cicerone.Router
@@ -23,7 +22,7 @@ class HomePresenter @AssistedInject constructor(
     private val disposables = CompositeDisposable()
 
     var wasDragging: Boolean = false
-    private var platformsListPosition = 0
+    var platformsListPosition = 0
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -65,6 +64,16 @@ class HomePresenter @AssistedInject constructor(
             )
     }
 
+    fun onPlatformSelected(itemPosition: Int, platformName: String) {
+        platformsListPosition = itemPosition
+
+        disposables += gamesRepository.getPlatformByName(platformName)
+            .observeOn(schedulers.main())
+            .subscribeBy(
+                onSuccess = (::onGetPlatformIdSuccess)
+            )
+    }
+
     private fun getCachedGames() = gamesRepository.getListOfGames(
         page = 1,
         updated = today,
@@ -78,10 +87,12 @@ class HomePresenter @AssistedInject constructor(
     )
 
     private fun onGetPlatformsSuccess(platforms: List<String>) {
-        viewState.setupPlatformsList(platforms, platformsListPosition)
+        viewState.setupPlatformsList(platforms)
     }
 
     private fun onGetSliderGamesSuccess(hotGamesIds: List<Int>) = viewState.setupSlider(hotGamesIds)
+
+    private fun onGetPlatformIdSuccess(platformId: Int) = viewState.setCurrentPlatform(platformId)
 
     private fun onGetSliderGamesError() {
         viewState.showError()
@@ -95,9 +106,5 @@ class HomePresenter @AssistedInject constructor(
     fun onGamesPageSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onGamesPageUnselected(position: Int?) = position?.let(viewState::unselectPageText)
-
-    fun onPlatformSelected(itemPosition: Int) {
-
-    }
 
 }

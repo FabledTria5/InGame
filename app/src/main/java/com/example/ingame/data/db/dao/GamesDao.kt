@@ -30,6 +30,9 @@ interface GamesDao {
     @Query(value = "SELECT platformName FROM platforms ORDER BY platformId DESC")
     fun getPlatformsNames(): Single<List<String>>
 
+    @Query(value = "SELECT platformId FROM platforms WHERE platformName = :platformName")
+    fun getPlatformByName(platformName: String): Single<Int>
+
     @Query(value = "DELETE FROM hot_games")
     fun clearHotGames(): Completable
 
