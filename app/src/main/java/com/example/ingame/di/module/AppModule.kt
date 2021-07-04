@@ -24,7 +24,7 @@ class AppModule {
     fun provideLastKnownDate(sharedPreferences: SharedPreferences?): String =
         sharedPreferences?.getString(
             PREFERENCE_DATE, ""
-        )!!
+        ) ?: ""
 
     @Singleton
     @Provides

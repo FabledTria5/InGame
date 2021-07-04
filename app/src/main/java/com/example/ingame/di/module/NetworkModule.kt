@@ -3,6 +3,7 @@ package com.example.ingame.di.module
 import com.example.ingame.BuildConfig
 import com.example.ingame.data.network.api.ApiHelper
 import com.example.ingame.data.network.api.ApiHelperImpl
+import com.example.ingame.data.network.api.ApiInterceptor
 import com.example.ingame.data.network.api.ApiService
 import com.example.ingame.utils.Constants
 import dagger.Module
@@ -23,10 +24,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .addInterceptor(ApiInterceptor)
             .build()
     } else {
         OkHttpClient.Builder().build()

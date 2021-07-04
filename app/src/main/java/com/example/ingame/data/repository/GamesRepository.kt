@@ -17,14 +17,12 @@ class GamesRepository @Inject constructor(
     private val schedulers: Schedulers
 ) : IGamesRepository {
 
-    private val dataConverter = DataConverter
-
     override fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.getHotGames().flatMap {
             if (it.isNullOrEmpty()) {
                 apiHelper.getListOfGames(page, updated, pageSize)
                     .flatMap { gamesList ->
-                        dbHelper.fetchHotGames(dataConverter.convertToHotGames(gamesList.results))
+                        dbHelper.fetchHotGames(DataConverter.convertToHotGames(gamesList.results))
                     }
             } else {
                 Single.just(it)
@@ -34,13 +32,13 @@ class GamesRepository @Inject constructor(
     override fun getNewListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.clearHotGamesCache().andThen(
             apiHelper.getListOfGames(page, updated, pageSize).flatMap { gamesList ->
-                dbHelper.fetchHotGames(dataConverter.convertToHotGames(gamesList.results))
+                dbHelper.fetchHotGames(DataConverter.convertToHotGames(gamesList.results))
             }
         ).subscribeOn(schedulers.backGround())
 
     override fun getPlatformsList(): Single<List<String>> =
         apiHelper.getPlatforms().flatMap {
-            dbHelper.fetchPlatforms(dataConverter.convertToPlatforms(it.results))
+            dbHelper.fetchPlatforms(DataConverter.convertToPlatforms(it.results))
         }
 
     override fun getGamesByPlatform(page: Int, platforms: String): Single<GamesList> =
