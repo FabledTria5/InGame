@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
@@ -113,6 +114,17 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
         }
         binding.indicator.setViewPager(binding.vpHotGames)
         binding.hotGamesLoaded = true
+    }
+
+    override fun setupPlatformsList(platforms: List<String>) {
+        binding.actvPlatforms.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                R.layout.spinner_item_platforms,
+                platforms.toTypedArray()
+            )
+        )
+        binding.actvPlatforms.setText(binding.actvPlatforms.adapter.getItem(0).toString(), false)
     }
 
     override fun setupGamesViewPager() {

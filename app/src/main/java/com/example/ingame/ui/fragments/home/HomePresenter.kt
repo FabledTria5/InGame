@@ -1,5 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
+import com.example.ingame.data.network.model.platforms.Platforms
 import com.example.ingame.data.repository.IGamesRepository
 import com.example.ingame.ui.schedulers.Schedulers
 import com.github.terrakok.cicerone.Router
@@ -28,6 +29,7 @@ class HomePresenter @AssistedInject constructor(
         viewState.setupGamesViewPager()
         viewState.selectPageText(0)
         getSliderGames()
+        getPlatformsList()
     }
 
     override fun onDestroy() {
@@ -54,6 +56,14 @@ class HomePresenter @AssistedInject constructor(
         }
     }
 
+    private fun getPlatformsList() {
+        disposables += gamesRepository.getPlatformsList()
+            .observeOn(schedulers.main())
+            .subscribeBy(
+                onSuccess = (::onGetPlatformsSuccess)
+            )
+    }
+
     private fun getCachedGames() = gamesRepository.getListOfGames(
         page = 1,
         updated = today,
@@ -65,6 +75,14 @@ class HomePresenter @AssistedInject constructor(
         updated = today,
         pageSize = 5
     )
+
+    private fun onGetPlatformsSuccess(platforms: Platforms) {
+        val platformsNames = arrayListOf<String>()
+        for (platform in platforms.results) {
+            platformsNames.add(platform.name)
+        }
+        viewState.setupPlatformsList(platformsNames)
+    }
 
     private fun onGetSliderGamesSuccess(hotGamesIds: List<Int>) = viewState.setupSlider(hotGamesIds)
 

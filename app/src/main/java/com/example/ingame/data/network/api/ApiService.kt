@@ -4,6 +4,7 @@ import com.example.ingame.BuildConfig
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.data.network.model.games_list.GamesList
+import com.example.ingame.data.network.model.platforms.Platforms
 import com.example.ingame.data.network.model.screenshots.Snapshots
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -44,4 +45,9 @@ interface ApiService {
         @Path(value = "game_pk") gameId: Int,
         @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
     ): Single<GameDevelopers>
+
+    @GET(value = "api/platforms")
+    fun getPlatformsList(
+        @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
+    ): Single<Platforms>
 }

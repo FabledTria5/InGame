@@ -18,4 +18,6 @@ class ApiHelperImpl @Inject constructor(
 
     override fun getDevelopers(gameId: Int) = apiService.getDevelopers(gameId = gameId)
 
+    override fun getPlatforms() = apiService.getPlatformsList()
+
 }
