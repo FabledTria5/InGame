@@ -48,6 +48,7 @@ interface ApiService {
 
     @GET(value = "api/platforms")
     fun getPlatformsList(
-        @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY
+        @Query(value = "key") apiKey: String = BuildConfig.GAMES_API_KEY,
+        @Query(value = "page_size") pageSize: Int = 15
     ): Single<Platforms>
 }

@@ -116,7 +116,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
         binding.hotGamesLoaded = true
     }
 
-    override fun setupPlatformsList(platforms: List<String>) {
+    override fun setupPlatformsList(platforms: List<String>, position: Int) {
         binding.actvPlatforms.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -124,7 +124,13 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
                 platforms.toTypedArray()
             )
         )
-        binding.actvPlatforms.setText(binding.actvPlatforms.adapter.getItem(0).toString(), false)
+        binding.actvPlatforms.setText(
+            binding.actvPlatforms.adapter.getItem(position).toString(),
+            false
+        )
+        binding.actvPlatforms.setOnItemClickListener { _, _, itemPosition, _ ->
+            homePresenter.onPlatformSelected(itemPosition)
+        }
     }
 
     override fun setupGamesViewPager() {

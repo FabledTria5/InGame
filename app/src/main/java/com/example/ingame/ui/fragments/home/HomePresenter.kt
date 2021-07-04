@@ -23,6 +23,7 @@ class HomePresenter @AssistedInject constructor(
     private val disposables = CompositeDisposable()
 
     var wasDragging: Boolean = false
+    private var platformsListPosition = 0
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -76,12 +77,8 @@ class HomePresenter @AssistedInject constructor(
         pageSize = 5
     )
 
-    private fun onGetPlatformsSuccess(platforms: Platforms) {
-        val platformsNames = arrayListOf<String>()
-        for (platform in platforms.results) {
-            platformsNames.add(platform.name)
-        }
-        viewState.setupPlatformsList(platformsNames)
+    private fun onGetPlatformsSuccess(platforms: List<String>) {
+        viewState.setupPlatformsList(platforms, platformsListPosition)
     }
 
     private fun onGetSliderGamesSuccess(hotGamesIds: List<Int>) = viewState.setupSlider(hotGamesIds)
@@ -98,5 +95,9 @@ class HomePresenter @AssistedInject constructor(
     fun onGamesPageSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onGamesPageUnselected(position: Int?) = position?.let(viewState::unselectPageText)
+
+    fun onPlatformSelected(itemPosition: Int) {
+
+    }
 
 }
