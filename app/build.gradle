@@ -132,5 +132,9 @@ dependencies {
     // Fragments
     implementation "androidx.fragment:fragment-ktx:1.4.0-alpha04"
 
+    // RecyclerView Animators
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+    // FlexBox layoutManager
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }

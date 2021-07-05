@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="posterUrl"
             type="String" />
@@ -13,15 +14,15 @@
         android:layout_height="@dimen/_80sdp"
         android:background="@color/black"
         app:cardCornerRadius="@dimen/_7sdp"
-        app:cardElevation="@dimen/_20sdp"
+        app:cardElevation="@dimen/_10sdp"
         app:cardPreventCornerOverlap="false">
 
         <ImageView
             android:id="@+id/ivGamePoster"
+            imageUrl="@{posterUrl}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="center"
-            imageUrl="@{posterUrl}" />
+            android:scaleType="center" />
 
     </com.google.android.material.card.MaterialCardView>
 

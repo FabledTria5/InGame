@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentGamesListBinding
 import com.example.ingame.ui.adapters.recyclerviews.home.HomeGamesListAdapter
@@ -15,7 +15,7 @@ import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.Constants.HOME_GAMES_LIST_SIZE
 import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
 import com.example.ingame.utils.Constants.SELECTED_PLATFORM
-import com.example.ingame.utils.GridSpacingItemDecorator
+import com.google.android.flexbox.*
 import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -50,12 +50,25 @@ class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
 
     override fun setupRecycler() {
         gamesListAdapter = HomeGamesListAdapter(popularPresenter.homeGamesPresenter)
+
+        val flexLayoutManager = FlexboxLayoutManager(context).apply {
+            justifyContent = JustifyContent.SPACE_AROUND
+            alignItems = AlignItems.CENTER
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
+        }
+
+        val flexBoxItemDecoration = FlexboxItemDecoration(context).apply {
+            setOrientation(FlexboxItemDecoration.HORIZONTAL)
+            setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.list_divider))
+        }
+
         binding.rvGamesList.apply {
             adapter = gamesListAdapter
             itemAnimator = FlipInTopXAnimator()
             itemAnimator?.changeDuration = 1000
-            layoutManager = GridLayoutManager(context, 2)
-            addItemDecoration(GridSpacingItemDecorator(spacing = 60, includeEdge = true))
+            layoutManager = flexLayoutManager
+            addItemDecoration(flexBoxItemDecoration)
         }
     }
 
