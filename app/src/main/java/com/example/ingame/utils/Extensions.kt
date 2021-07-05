@@ -3,6 +3,7 @@ package com.example.ingame.utils
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -31,6 +32,10 @@ fun TabLayout.Tab.selectTab() {
         null, Shader.TileMode.CLAMP
     )
     textView.paint.shader = textShader
+}
+
+fun View.show() {
+    visibility = View.VISIBLE
 }
 
 fun TabLayout.Tab.unselectTab() {

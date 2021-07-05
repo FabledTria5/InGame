@@ -131,4 +131,6 @@ dependencies {
 
     // Fragments
     implementation "androidx.fragment:fragment-ktx:1.4.0-alpha04"
+
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 }

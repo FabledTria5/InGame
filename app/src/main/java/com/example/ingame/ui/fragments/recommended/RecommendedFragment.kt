@@ -1,4 +1,4 @@
-package com.example.ingame.ui.fragments.games_list
+package com.example.ingame.ui.fragments.recommended
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentGamesListBinding
+import com.example.ingame.ui.base.GamesLoaderView
 import com.example.ingame.ui.di_base.BaseDaggerFragment
-import com.example.ingame.ui.adapters.recyclerviews.HomeGamesListAdapter
-import com.example.ingame.utils.GridSpacingItemDecorator
 
-class GamesListFragment : BaseDaggerFragment() {
+class RecommendedFragment : BaseDaggerFragment(), GamesLoaderView {
 
     private lateinit var binding: FragmentGamesListBinding
 
@@ -21,19 +20,25 @@ class GamesListFragment : BaseDaggerFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_games_list, container, false)
+            .inflate(layoutInflater, R.layout.fragment_games_list, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rvGamesList.apply {
-            adapter =
-                HomeGamesListAdapter().apply {
-                    addGames(arrayListOf("1", "2", "3", "4", "5"))
-                    notifyDataSetChanged()
-                }
-            addItemDecoration(GridSpacingItemDecorator(spacing = 60, includeEdge = true))
-        }
+        binding.rvGamesList.visibility = View.GONE
+        binding.tvRecommendationsMessage.visibility = View.VISIBLE
+    }
+
+    override fun setupRecycler() {
+
+    }
+
+    override fun fillList() {
+
+    }
+
+    override fun clearList() {
+
     }
 
 }

@@ -6,11 +6,13 @@ import com.example.ingame.ui.fragments.calendar.CalendarFragment
 import com.example.ingame.ui.fragments.catalogue.CatalogueFragment
 import com.example.ingame.ui.fragments.collections.CollectionsFragment
 import com.example.ingame.ui.fragments.game.GameFragment
-import com.example.ingame.ui.fragments.games_list.GamesListFragment
 import com.example.ingame.ui.fragments.home.HomeFragment
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.fragments.info.InfoFragment
+import com.example.ingame.ui.fragments.new.NewFragment
+import com.example.ingame.ui.fragments.popular.PopularFragment
 import com.example.ingame.ui.fragments.profile.ProfileFragment
+import com.example.ingame.ui.fragments.recommended.RecommendedFragment
 import com.example.ingame.ui.fragments.requirements.RequirementsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -34,9 +36,6 @@ abstract class UiModule {
     abstract fun bindGameFragment(): GameFragment
 
     @ContributesAndroidInjector
-    abstract fun bindGamesListFragment(): GamesListFragment
-
-    @ContributesAndroidInjector
     abstract fun bindProfileFragment(): ProfileFragment
 
     @ContributesAndroidInjector
@@ -53,5 +52,14 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun bindRequiredFragment(): RequirementsFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindRecommendedFragment(): RecommendedFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindPopularFragment(): PopularFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindNewFragment(): NewFragment
 
 }

@@ -12,8 +12,7 @@ interface IGamesRepository {
     fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
     fun getNewListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
     fun getPlatformsList(): Single<List<String>>
-
-    fun getGamesByPlatform(page: Int, platforms: String): Single<GamesList>
+    fun getGamesByPlatform(page: Int, platform: Int, dates: String): Single<GamesList>
     fun getPlatformByName(platformName: String): Single<Int>
     fun getGameDetails(id: Int): Single<GameDetails>
     fun getSnapshots(gameId: Int): Single<Snapshots>

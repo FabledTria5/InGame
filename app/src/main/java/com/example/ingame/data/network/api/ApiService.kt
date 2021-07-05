@@ -5,6 +5,7 @@ import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.data.network.model.games_list.GamesList
 import com.example.ingame.data.network.model.platforms.Platforms
 import com.example.ingame.data.network.model.screenshots.Snapshots
+import com.example.ingame.utils.Constants.HOME_GAMES_LIST_SIZE
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,16 +14,18 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET(value = "api/games")
-    fun getListOfGames(
+    fun getHotGames(
         @Query(value = "page") page: Int,
         @Query(value = "updated", encoded = true) updated: String,
         @Query(value = "page_size") pageSize: Int
     ): Single<GamesList>
 
     @GET(value = "api/games")
-    fun getGamesByPlatform(
-        @Query(value = "page") page: Int,
-        @Query(value = "platforms") platforms: String,
+    fun getPopularGamesByPlatform(
+        @Query(value = "platforms") platform: Int,
+        @Query(value = "dates") dates: String,
+        @Query(value = "page_size") pageSize: Int = HOME_GAMES_LIST_SIZE,
+        @Query(value = "ordering") ordering: String = "-added"
     ): Single<GamesList>
 
     @GET(value = "api/games/{id}")

@@ -20,7 +20,7 @@ class GamesRepository @Inject constructor(
     override fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.getHotGames().flatMap {
             if (it.isNullOrEmpty()) {
-                apiHelper.getListOfGames(page, updated, pageSize)
+                apiHelper.getHotGames(page, updated, pageSize)
                     .flatMap { gamesList ->
                         dbHelper.fetchHotGames(DataConverter.convertToHotGames(gamesList.results))
                     }
@@ -31,7 +31,7 @@ class GamesRepository @Inject constructor(
 
     override fun getNewListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.clearHotGamesCache().andThen(
-            apiHelper.getListOfGames(page, updated, pageSize).flatMap { gamesList ->
+            apiHelper.getHotGames(page, updated, pageSize).flatMap { gamesList ->
                 dbHelper.fetchHotGames(DataConverter.convertToHotGames(gamesList.results))
             }
         ).subscribeOn(schedulers.backGround())
@@ -41,8 +41,12 @@ class GamesRepository @Inject constructor(
             dbHelper.fetchPlatforms(DataConverter.convertToPlatforms(it.results))
         }
 
-    override fun getGamesByPlatform(page: Int, platforms: String): Single<GamesList> =
-        apiHelper.getGamesByPlatform(page, platforms)
+    override fun getGamesByPlatform(
+        page: Int,
+        platform: Int,
+        dates: String
+    ): Single<GamesList> =
+        apiHelper.getGamesByPlatform(page, platform, dates)
             .subscribeOn(schedulers.backGround())
 
     override fun getPlatformByName(platformName: String): Single<Int> =

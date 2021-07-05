@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.setFragmentResult
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
 import com.example.ingame.R
@@ -133,18 +132,25 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
             false
         )
 
+        homePresenter.onPlatformSelected(
+            homePresenter.platformsListPosition,
+            binding.actvPlatforms.adapter.getItem(homePresenter.platformsListPosition).toString()
+        )
+
         binding.actvPlatforms.apply {
             setOnItemClickListener { _, _, itemPosition, _ ->
                 homePresenter.onPlatformSelected(
                     itemPosition,
-                    adapter.getItem(homePresenter.platformsListPosition).toString()
+                    adapter.getItem(itemPosition).toString()
                 )
             }
         }
     }
 
-    override fun setCurrentPlatform(platformId: Int) =
-        setFragmentResult(RESULT_SELECTED_PLATFORM, bundleOf(SELECTED_PLATFORM to platformId))
+    override fun setCurrentPlatform(platformId: Int) = childFragmentManager.setFragmentResult(
+        RESULT_SELECTED_PLATFORM,
+        bundleOf(SELECTED_PLATFORM to platformId)
+    )
 
     override fun setupGamesViewPager() {
         binding.vpGames.adapter =

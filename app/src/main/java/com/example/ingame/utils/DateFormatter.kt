@@ -17,4 +17,11 @@ object DateFormatter {
 
     fun getMonthName(formattedDate: String) = DateFormatSymbols.getInstance()
         .months[(formattedDate.split("-")[1].toInt()) - 1].makeCapital()
+
+    fun getLastMonthsInApiForm(count: Int): String {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.MONTH, -count)
+        return "${simpleDateFormat.format(cal.time)},${getToday()}"
+    }
 }
