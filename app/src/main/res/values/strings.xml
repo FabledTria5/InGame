@@ -34,4 +34,5 @@
     <string name="unfortunately_we_can_not_show_system_requirements_for_this_game">Unfortunately, we can not show system requirements for this game</string>
     <string name="Recommendations_message">Recommendations will be available for registered users in future updates.</string>
     <string name="logotype">Logotype</string>
+    <string name="in_development">In Development</string>
 </resources>
