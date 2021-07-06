@@ -1,7 +1,5 @@
 package com.example.ingame.ui.fragments.game
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,11 +81,6 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
         binding.gameDetail = gameDetails
     }
 
-    override fun openBrowser() = Intent().apply {
-        action = Intent.ACTION_VIEW
-        data = Uri.parse(binding.gameDetail?.website)
-    }.let(::startActivity)
-
     override fun selectPageText(page: Int) {
         binding.tabLayout.getTabAt(page)?.selectTab()
     }
@@ -101,10 +94,6 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     private fun setupListeners() {
         binding.ivBackButton.setOnClickListener {
             gamePresenter.backPressed()
-        }
-
-        binding.ivBrowser.setOnClickListener {
-            gamePresenter.onBrowserClick()
         }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

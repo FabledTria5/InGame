@@ -54,8 +54,6 @@ class GamePresenter @AssistedInject constructor(
         return true
     }
 
-    fun onBrowserClick() = viewState.openBrowser()
-
     fun onTabSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onTabUnselected(position: Int?) = position?.let(viewState::unselectPageText)

@@ -51,23 +51,11 @@
                         android:id="@+id/ivBackButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:fitsSystemWindows="false"
                         android:src="@drawable/ic_back"
-                        app:layout_constraintBottom_toBottomOf="@+id/ivBrowser"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/ivBrowser" />
-
-                    <ImageView
-                        android:id="@+id/ivBrowser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:alpha="0.9"
-                        android:fitsSystemWindows="false"
-                        android:src="@drawable/ic_browser"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
