@@ -70,8 +70,13 @@ class PopularPresenter @AssistedInject constructor(
     }
 
     private fun onGetGamesSuccess(gamesList: GamesList) {
+        if (gamesList.results.isNullOrEmpty()) {
+            viewState.showEmptyMessage()
+            return
+        }
         homeGamesPresenter.gamesList.clear()
         viewState.clearList()
         homeGamesPresenter.gamesList.addAll(gamesList.results)
+        viewState.showList()
     }
 }

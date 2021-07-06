@@ -9,6 +9,12 @@ interface GamesLoaderView : MvpView {
     @AddToEndSingle
     fun setupRecycler()
 
+    @AddToEndSingle
+    fun showEmptyMessage()
+
+    @AddToEndSingle
+    fun showList()
+
     @Skip
     fun fillList()
 

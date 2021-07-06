@@ -78,6 +78,14 @@ class NewGamesFragment : BaseDaggerFragment(), GamesLoaderView {
         }
     }
 
+    override fun showEmptyMessage() {
+        binding.dataIsEmpty = true
+    }
+
+    override fun showList() {
+        binding.dataIsEmpty = false
+    }
+
     override fun fillList() =
         gamesListAdapter.notifyItemRangeInserted(0, Constants.HOME_GAMES_LIST_SIZE)
 

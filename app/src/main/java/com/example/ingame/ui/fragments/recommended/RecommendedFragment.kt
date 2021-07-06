@@ -33,6 +33,14 @@ class RecommendedFragment : BaseDaggerFragment(), GamesLoaderView {
 
     }
 
+    override fun showEmptyMessage() {
+
+    }
+
+    override fun showList() {
+
+    }
+
     override fun fillList() {
 
     }

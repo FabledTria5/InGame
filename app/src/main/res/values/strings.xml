@@ -35,4 +35,5 @@
     <string name="Recommendations_message">Recommendations will be available for registered users in future updates.</string>
     <string name="logotype">Logotype</string>
     <string name="in_development">In Development</string>
+    <string name="nothing_to_show">Nothing to show (</string>
 </resources>

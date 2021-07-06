@@ -77,10 +77,17 @@ class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
         }
     }
 
+    override fun showEmptyMessage() {
+        binding.dataIsEmpty = true
+    }
+
+    override fun showList() {
+        binding.dataIsEmpty = false
+    }
+
     override fun fillList() =
         gamesListAdapter.notifyItemRangeInserted(0, HOME_GAMES_LIST_SIZE)
 
     override fun clearList() =
         gamesListAdapter.notifyItemRangeRemoved(0, HOME_GAMES_LIST_SIZE)
-
 }
