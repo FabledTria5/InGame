@@ -42,12 +42,14 @@ class GamesRepository @Inject constructor(
         }
 
     override fun getGamesByPlatform(
-        page: Int,
         platform: Int,
         dates: String
     ): Single<GamesList> =
-        apiHelper.getGamesByPlatform(page, platform, dates)
+        apiHelper.getGamesByPlatform(platform, dates)
             .subscribeOn(schedulers.backGround())
+
+    override fun getNewGamesByPlatform(platform: Int, dates: String): Single<GamesList> =
+        apiHelper.getNewGamesByPlatform(platform, dates).subscribeOn(schedulers.backGround())
 
     override fun getPlatformByName(platformName: String): Single<Int> =
         dbHelper.getPlatformByName(platformName).subscribeOn(schedulers.backGround())

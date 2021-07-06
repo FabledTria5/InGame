@@ -1,4 +1,4 @@
-package com.example.ingame.ui.fragments.popular
+package com.example.ingame.ui.fragments.new_games
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,25 +14,23 @@ import com.example.ingame.databinding.FragmentGamesListBinding
 import com.example.ingame.ui.adapters.recyclerviews.home.HomeGamesListAdapter
 import com.example.ingame.ui.base.GamesLoaderView
 import com.example.ingame.ui.di_base.BaseDaggerFragment
-import com.example.ingame.utils.Constants.HOME_GAMES_LIST_SIZE
+import com.example.ingame.utils.Constants
 import com.example.ingame.utils.Constants.PLATFORM_REQUEST
-import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
-import com.example.ingame.utils.Constants.SELECTED_PLATFORM
 import com.google.android.flexbox.*
 import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
+class NewGamesFragment : BaseDaggerFragment(), GamesLoaderView {
 
     @Inject
-    lateinit var popularPresenterFactory: PopularPresenterFactory
+    lateinit var newPresenterFactory: NewPresenterFactory
 
     private lateinit var binding: FragmentGamesListBinding
     private lateinit var gamesListAdapter: HomeGamesListAdapter
 
-    private val popularPresenter by moxyPresenter {
-        popularPresenterFactory.create()
+    private val newPresenter by moxyPresenter {
+        newPresenterFactory.create()
     }
 
     override fun onCreateView(
@@ -47,14 +45,17 @@ class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
 
     override fun onResume() {
         super.onResume()
-        setFragmentResult(PLATFORM_REQUEST, bundleOf(PLATFORM_REQUEST to 0))
-        setFragmentResultListener(RESULT_SELECTED_PLATFORM) { _, bundle ->
-            popularPresenter.platformSelected(bundle.getInt(SELECTED_PLATFORM))
+        setFragmentResult(
+            PLATFORM_REQUEST,
+            bundleOf(PLATFORM_REQUEST to newPresenter.selectedPlatform)
+        )
+        setFragmentResultListener(Constants.RESULT_SELECTED_PLATFORM) { _, bundle ->
+            newPresenter.platformSelected(bundle.getInt(Constants.SELECTED_PLATFORM))
         }
     }
 
     override fun setupRecycler() {
-        gamesListAdapter = HomeGamesListAdapter(popularPresenter.homeGamesPresenter)
+        gamesListAdapter = HomeGamesListAdapter(newPresenter.homeGamesPresenter)
 
         val flexLayoutManager = FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP)
             .apply {
@@ -78,9 +79,8 @@ class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
     }
 
     override fun fillList() =
-        gamesListAdapter.notifyItemRangeInserted(0, HOME_GAMES_LIST_SIZE)
+        gamesListAdapter.notifyItemRangeInserted(0, Constants.HOME_GAMES_LIST_SIZE)
 
     override fun clearList() =
-        gamesListAdapter.notifyItemRangeRemoved(0, HOME_GAMES_LIST_SIZE)
-
+        gamesListAdapter.notifyItemRangeRemoved(0, Constants.HOME_GAMES_LIST_SIZE)
 }

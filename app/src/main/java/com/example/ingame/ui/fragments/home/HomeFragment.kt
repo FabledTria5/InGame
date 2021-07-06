@@ -18,6 +18,7 @@ import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.utils.Constants.HOT_GAMES_DELAY
 import com.example.ingame.utils.Constants.HOT_GAMES_TICK_RATE
+import com.example.ingame.utils.Constants.PLATFORM_REQUEST
 import com.example.ingame.utils.Constants.PREFERENCE_DATE
 import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
 import com.example.ingame.utils.Constants.SELECTED_PLATFORM
@@ -54,6 +55,15 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        childFragmentManager.setFragmentResultListener(
+            PLATFORM_REQUEST,
+            viewLifecycleOwner
+        ) { _, _ ->
+            onInitPlatformSelect()
+        }
     }
 
     override fun onPause() {
@@ -132,10 +142,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
             false
         )
 
-        homePresenter.onPlatformSelected(
-            homePresenter.platformsListPosition,
-            binding.actvPlatforms.adapter.getItem(homePresenter.platformsListPosition).toString()
-        )
+        onInitPlatformSelect()
 
         binding.actvPlatforms.apply {
             setOnItemClickListener { _, _, itemPosition, _ ->
@@ -186,4 +193,9 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun backPressed() = homePresenter.backPressed()
+
+    private fun onInitPlatformSelect() = homePresenter.onPlatformSelected(
+        homePresenter.platformsListPosition,
+        binding.actvPlatforms.adapter.getItem(homePresenter.platformsListPosition).toString()
+    )
 }

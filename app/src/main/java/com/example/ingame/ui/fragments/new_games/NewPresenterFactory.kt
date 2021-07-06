@@ -1,8 +1,8 @@
-package com.example.ingame.ui.fragments.new
+package com.example.ingame.ui.fragments.new_games
 
 import dagger.assisted.AssistedFactory
 
 @AssistedFactory
 interface NewPresenterFactory {
-    fun create(): NewPresenter
+    fun create(): NewGamesPresenter
 }

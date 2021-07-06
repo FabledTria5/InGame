@@ -9,7 +9,9 @@ import io.reactivex.rxjava3.core.Single
 
 interface ApiHelper {
     fun getHotGames(page: Int, updated: String, pageSize: Int): Single<GamesList>
-    fun getGamesByPlatform(page: Int, platform: Int, dates: String): Single<GamesList>
+    fun getGamesByPlatform(platform: Int, dates: String): Single<GamesList>
+    fun getNewGamesByPlatform(platform: Int, dates: String) : Single<GamesList>
+
     fun getGameDetails(id: Int): Single<GameDetails>
     fun getSnapshots(gameId: Int): Single<Snapshots>
     fun getDevelopers(gameId: Int): Single<GameDevelopers>

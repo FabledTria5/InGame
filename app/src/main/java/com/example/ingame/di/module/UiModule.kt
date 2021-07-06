@@ -9,7 +9,7 @@ import com.example.ingame.ui.fragments.game.GameFragment
 import com.example.ingame.ui.fragments.home.HomeFragment
 import com.example.ingame.ui.fragments.hot_game.HotGameFragment
 import com.example.ingame.ui.fragments.info.InfoFragment
-import com.example.ingame.ui.fragments.new.NewFragment
+import com.example.ingame.ui.fragments.new_games.NewGamesFragment
 import com.example.ingame.ui.fragments.popular.PopularFragment
 import com.example.ingame.ui.fragments.profile.ProfileFragment
 import com.example.ingame.ui.fragments.recommended.RecommendedFragment
@@ -60,6 +60,6 @@ abstract class UiModule {
     abstract fun bindPopularFragment(): PopularFragment
 
     @ContributesAndroidInjector
-    abstract fun bindNewFragment(): NewFragment
+    abstract fun bindNewGamesFragment(): NewGamesFragment
 
 }

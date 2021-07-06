@@ -34,10 +34,6 @@ fun TabLayout.Tab.selectTab() {
     textView.paint.shader = textShader
 }
 
-fun View.show() {
-    visibility = View.VISIBLE
-}
-
 fun TabLayout.Tab.unselectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
     textView.paint.shader = null

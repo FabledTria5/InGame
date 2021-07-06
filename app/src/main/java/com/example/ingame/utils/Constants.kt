@@ -10,6 +10,7 @@ object Constants {
 
     const val RESULT_SELECTED_PLATFORM = "result_selected_platform"
     const val SELECTED_PLATFORM = "selected_platform"
+    const val PLATFORM_REQUEST = "request_platform"
 
     const val HOME_GAMES_LIST_SIZE = 10
 }

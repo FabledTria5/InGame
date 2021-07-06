@@ -28,6 +28,13 @@ interface ApiService {
         @Query(value = "ordering") ordering: String = "-added"
     ): Single<GamesList>
 
+    @GET(value = "getNewGamesByPlatform")
+    fun getNewGamesByPlatform(
+        @Query(value = "platforms") platform: Int,
+        @Query(value = "dates") dates: String,
+        @Query(value = "page_size") pageSize: Int = HOME_GAMES_LIST_SIZE,
+    ): Single<GamesList>
+
     @GET(value = "api/games/{id}")
     fun getGameDetails(
         @Path(value = "id") id: Int,

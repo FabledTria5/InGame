@@ -1,11 +1,11 @@
-package com.example.ingame.ui.fragments.popular
+package com.example.ingame.ui.fragments.new_games
 
 import com.example.ingame.data.network.model.games_list.GamesList
 import com.example.ingame.data.network.model.games_list.Result
 import com.example.ingame.data.repository.IGamesRepository
 import com.example.ingame.ui.adapters.recyclerviews.home.IHomeGamesPresenter
-import com.example.ingame.ui.base.GamesLoaderView
 import com.example.ingame.ui.adapters.recyclerviews.home.IHomeGamesViewHolder
+import com.example.ingame.ui.base.GamesLoaderView
 import com.example.ingame.ui.navigation.IScreens
 import com.example.ingame.ui.schedulers.Schedulers
 import com.example.ingame.utils.DateFormatter
@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
 
-class PopularPresenter @AssistedInject constructor(
+class NewGamesPresenter @AssistedInject constructor(
     private val schedulers: Schedulers,
     private val gamesRepository: IGamesRepository,
     private val router: Router,
@@ -25,7 +25,7 @@ class PopularPresenter @AssistedInject constructor(
 
     private val disposables = CompositeDisposable()
 
-    private var selectedPlatform = -1
+    var selectedPlatform = -1
 
     inner class HomeGamesPresenter : IHomeGamesPresenter {
 
@@ -60,7 +60,7 @@ class PopularPresenter @AssistedInject constructor(
         if (platformId == selectedPlatform) return
         disposables += gamesRepository.getGamesByPlatform(
             platform = platformId,
-            dates = DateFormatter.getLastMonthsInApiForm(count = 3)
+            dates = DateFormatter.getLastMonthsInApiForm(count = 1)
         )
             .observeOn(schedulers.main())
             .subscribeBy(
@@ -74,4 +74,5 @@ class PopularPresenter @AssistedInject constructor(
         viewState.clearList()
         homeGamesPresenter.gamesList.addAll(gamesList.results)
     }
+
 }
