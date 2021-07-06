@@ -74,13 +74,13 @@ class HomePresenter @AssistedInject constructor(
             )
     }
 
-    private fun getCachedGames() = gamesRepository.getListOfGames(
+    private fun getCachedGames() = gamesRepository.getHotGames(
         page = 1,
         updated = today,
         pageSize = 5
     )
 
-    private fun getNewListOfGames() = gamesRepository.getNewListOfGames(
+    private fun getNewListOfGames() = gamesRepository.getUpdatedHotGames(
         page = 1,
         updated = today,
         pageSize = 5

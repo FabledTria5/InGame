@@ -150,7 +150,6 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
                     itemPosition,
                     adapter.getItem(itemPosition).toString()
                 )
-                binding.actvPlatforms.clearFocus()
             }
         }
     }

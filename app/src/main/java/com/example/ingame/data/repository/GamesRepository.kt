@@ -17,7 +17,7 @@ class GamesRepository @Inject constructor(
     private val schedulers: Schedulers
 ) : IGamesRepository {
 
-    override fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
+    override fun getHotGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.getHotGames().flatMap {
             if (it.isNullOrEmpty()) {
                 apiHelper.getHotGames(page, updated, pageSize)
@@ -29,7 +29,7 @@ class GamesRepository @Inject constructor(
             }
         }.subscribeOn(schedulers.backGround())
 
-    override fun getNewListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
+    override fun getUpdatedHotGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =
         dbHelper.clearHotGamesCache().andThen(
             apiHelper.getHotGames(page, updated, pageSize).flatMap { gamesList ->
                 dbHelper.fetchHotGames(DataConverter.convertToHotGames(gamesList.results))
@@ -37,9 +37,15 @@ class GamesRepository @Inject constructor(
         ).subscribeOn(schedulers.backGround())
 
     override fun getPlatformsList(): Single<List<String>> =
-        apiHelper.getPlatforms().flatMap {
-            dbHelper.fetchPlatforms(DataConverter.convertToPlatforms(it.results))
-        }
+        dbHelper.getPlatformsNames().flatMap {
+            if (it.isEmpty()) {
+                apiHelper.getPlatforms().flatMap { platforms ->
+                    dbHelper.fetchPlatforms(DataConverter.convertToPlatforms(platforms.results))
+                }
+            } else {
+                Single.just(it)
+            }
+        }.subscribeOn(schedulers.backGround())
 
     override fun getGamesByPlatform(
         platform: Int,

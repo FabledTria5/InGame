@@ -9,8 +9,8 @@ import io.reactivex.rxjava3.core.Single
 
 interface IGamesRepository {
 
-    fun getListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
-    fun getNewListOfGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
+    fun getHotGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
+    fun getUpdatedHotGames(page: Int, updated: String, pageSize: Int): Single<List<Int>>
     fun getGamesByPlatform(platform: Int, dates: String): Single<GamesList>
     fun getNewGamesByPlatform(platform: Int, dates: String) : Single<GamesList>
     fun getHotGameById(gameId: Int): Single<HotGame>
