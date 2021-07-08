@@ -1,16 +1,18 @@
 package com.example.ingame.ui.adapters.viewpagers
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.ingame.ui.fragments.games_list.GamesListFragment
-import moxy.MvpAppCompatFragment
+import com.example.ingame.ui.fragments.new_games.NewGamesFragment
+import com.example.ingame.ui.fragments.popular.PopularFragment
+import com.example.ingame.ui.fragments.recommended.RecommendedFragment
 
 class GamesListAdapter(
-    private val fragments: ArrayList<MvpAppCompatFragment> = arrayListOf(
-        GamesListFragment(),
-        GamesListFragment(),
-        GamesListFragment()
+    private val fragments: ArrayList<Fragment> = arrayListOf(
+        RecommendedFragment(),
+        PopularFragment(),
+        NewGamesFragment()
     ), lifecycle: Lifecycle,
     fragmentManager: FragmentManager
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -1,6 +1,5 @@
 package com.example.ingame.ui.navigation
 
-import com.example.ingame.data.network.model.games_list.Result
 import com.example.ingame.ui.fragments.catalogue.CatalogueFragment
 import com.example.ingame.ui.fragments.collections.CollectionsFragment
 import com.example.ingame.ui.fragments.game.GameFragment
@@ -19,8 +18,8 @@ class ApplicationScreens : IScreens {
 
     override fun profile() = FragmentScreen { ProfileFragment.newInstance() }
 
-    override fun hotGames(gameInfo: Result) =
-        FragmentScreen { HotGameFragment.newInstance(gameInfo = gameInfo) }
+    override fun hotGames(hotGameId: Int) =
+        FragmentScreen { HotGameFragment.newInstance(hotGameId = hotGameId) }
 
     override fun games(gameId: Int) = FragmentScreen { GameFragment.newInstance(gameId = gameId) }
 }

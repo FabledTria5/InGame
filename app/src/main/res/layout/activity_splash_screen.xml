@@ -2,23 +2,29 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/activity_splash_screen_xml_constraintlayout_scene">
+        android:background="@color/DarkPrimary">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:scaleType="centerCrop"
+            android:src="@drawable/splash_background" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_60sdp"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/logotype"
             android:src="@drawable/ic_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

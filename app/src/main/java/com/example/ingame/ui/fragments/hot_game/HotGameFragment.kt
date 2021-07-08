@@ -6,41 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
-import com.example.ingame.data.network.model.games_list.Result
+import com.example.ingame.data.db.model.HotGame
 import com.example.ingame.databinding.FragmentHotGameBinding
-import com.example.ingame.ui.navigation.IScreens
+import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.arguments
-import com.github.terrakok.cicerone.Router
-import dagger.hilt.android.AndroidEntryPoint
-import moxy.MvpAppCompatFragment
+import com.example.ingame.utils.toast
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class HotGameFragment : MvpAppCompatFragment(), HotGameView {
+class HotGameFragment : BaseDaggerFragment(), HotGameView {
 
     companion object {
-        private const val GAME_INFO = "game_info"
+        private const val GAME_ID = "gameId"
 
-        fun newInstance(gameInfo: Result) = HotGameFragment().arguments(
-            GAME_INFO to gameInfo,
+        fun newInstance(hotGameId: Int) = HotGameFragment().arguments(
+            GAME_ID to hotGameId,
         )
     }
 
     @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var screens: IScreens
+    lateinit var hotGamePresenterFactory: HotGamesPresenterFactory
 
     private lateinit var binding: FragmentHotGameBinding
 
-    private val gameInfo by lazy {
-        arguments?.getSerializable(GAME_INFO)!! as Result
+    private val hotGameId by lazy {
+        arguments?.getInt(GAME_ID)!!
     }
 
     private val hotGamePresenter by moxyPresenter {
-        HotGamePresenter(gameInfo, router, screens)
+        hotGamePresenterFactory.create(hotGameId)
     }
 
     override fun onCreateView(
@@ -54,13 +48,15 @@ class HotGameFragment : MvpAppCompatFragment(), HotGameView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.root.setOnClickListener {
-            router.navigateTo(screens.games(gameInfo.id))
+        view.setOnClickListener {
+            hotGamePresenter.onGameClicked()
         }
     }
 
-    override fun setGameInfo(gameInfo: Result) {
-        binding.gameInfo = gameInfo
+    override fun setGameInfo(hotGame: HotGame) {
+        binding.hotGame = hotGame
     }
+
+    override fun showError() = toast(getString(R.string.game_info_error))
 
 }

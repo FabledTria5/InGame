@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.example.ingame.R
 import com.example.ingame.databinding.ActivityMainBinding
+import com.example.ingame.ui.di_base.BaseDaggerActivity
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.ui.navigation.IScreens
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.navigation.NavigationBarView
-import dagger.hilt.android.AndroidEntryPoint
-import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class MainActivity : MvpAppCompatActivity(), MainView, NavigationBarView.OnItemSelectedListener {
+class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSelectedListener {
 
     @Inject
     lateinit var router: Router

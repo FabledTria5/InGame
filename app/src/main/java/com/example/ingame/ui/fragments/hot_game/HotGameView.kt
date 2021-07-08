@@ -1,12 +1,12 @@
 package com.example.ingame.ui.fragments.hot_game
 
-import com.example.ingame.data.network.model.games_list.Result
-import moxy.MvpView
+import com.example.ingame.data.db.model.HotGame
+import com.example.ingame.ui.base.ErrorView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
-interface HotGameView : MvpView {
+interface HotGameView : ErrorView {
 
     @AddToEndSingle
-    fun setGameInfo(gameInfo: Result)
+    fun setGameInfo(hotGame: HotGame)
 
 }

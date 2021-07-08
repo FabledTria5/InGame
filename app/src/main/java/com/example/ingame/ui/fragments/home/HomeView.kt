@@ -1,11 +1,10 @@
 package com.example.ingame.ui.fragments.home
 
-import com.example.ingame.ui.base.BaseView
-import com.example.ingame.ui.fragments.hot_game.HotGameFragment
+import com.example.ingame.ui.base.TabView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.Skip
 
-interface HomeView : BaseView {
+interface HomeView : TabView {
     @AddToEndSingle
     fun updateHotGames(newPosition: Int)
 
@@ -16,14 +15,17 @@ interface HomeView : BaseView {
     fun setupGamesViewPager()
 
     @AddToEndSingle
-    fun selectPageText(page: Int?)
+    fun setupSlider(hotGamesIds: List<Int>)
 
-    @Skip
-    fun unselectPageText(page: Int?)
+    @AddToEndSingle
+    fun setupPlatformsList(platforms: List<String>)
+
+    @AddToEndSingle
+    fun setCurrentPlatform(platformId: Int)
 
     @Skip
     fun showError()
 
-    @AddToEndSingle
-    fun setupSlider(arrayList: ArrayList<HotGameFragment>)
+    @Skip
+    fun updateDate(newDate: String)
 }

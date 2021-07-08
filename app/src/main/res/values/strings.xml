@@ -20,13 +20,20 @@
     <string name="share_with_friends">Share with friends</string>
     <string name="remove_from_favourites">Remove from favourites</string>
     <string name="dots">…</string>
-
-    <string-array name="Platforms">
-        <item>Playstation 5</item>
-        <item>XBox Series X</item>
-        <item>Nintendo Switch</item>
-        <item>Playstation 4</item>
-        <item>PC</item>
-        <item>XBox One</item>
-    </string-array>
+    <string name="snapshots">Snapshots</string>
+    <string name="see_all">See all</string>
+    <string name="release_date">Release date:</string>
+    <string name="platforms">Platforms:</string>
+    <string name="directors">Director(s):</string>
+    <string name="writer_s">Writer(s)</string>
+    <string name="developers">Developers</string>
+    <string name="releaseDateTemplates">%1$s %2$s, %3$s</string>
+    <string name="game_info_error">Error while receiving game info</string>
+    <string name="reqs_error">Error while loading requirements</string>
+    <string name="minimum">Minimum</string>
+    <string name="unfortunately_we_can_not_show_system_requirements_for_this_game">Unfortunately, we can not show system requirements for this game</string>
+    <string name="Recommendations_message">Recommendations will be available for registered users in future updates.</string>
+    <string name="logotype">Logotype</string>
+    <string name="in_development">In Development</string>
+    <string name="nothing_to_show">Nothing to show (</string>
 </resources>

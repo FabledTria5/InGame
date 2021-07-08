@@ -3,13 +3,11 @@ package com.example.ingame.di.module
 import com.example.ingame.BuildConfig
 import com.example.ingame.data.network.api.ApiHelper
 import com.example.ingame.data.network.api.ApiHelperImpl
+import com.example.ingame.data.network.api.ApiInterceptor
 import com.example.ingame.data.network.api.ApiService
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
 import com.example.ingame.utils.Constants
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,8 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
+class NetworkModule {
 
     @Provides
     fun provideBaseUrl(): String = Constants.GAMES_BASE_URL
@@ -27,10 +24,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .addInterceptor(ApiInterceptor)
             .build()
     } else {
         OkHttpClient.Builder().build()

@@ -1,25 +1,38 @@
 package com.example.ingame.di.module
 
+import android.content.Context
+import androidx.room.Room
+import com.example.ingame.data.db.GamesDataBase
+import com.example.ingame.data.db.helper.DBHelper
+import com.example.ingame.data.db.helper.IDBHelper
 import com.example.ingame.data.network.api.ApiHelper
-import com.example.ingame.data.network.repository.RetrofitRepositoryImpl
+import com.example.ingame.data.repository.GamesRepository
+import com.example.ingame.data.repository.IGamesRepository
+import com.example.ingame.ui.schedulers.Schedulers
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DataModule {
+class DataModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitRepository(apiHelper: ApiHelper): RetrofitRepositoryImpl =
-        RetrofitRepositoryImpl(apiHelper)
+    fun provideGamesDataBase(context: Context): GamesDataBase = Room
+        .databaseBuilder(context, GamesDataBase::class.java, "games_database")
+        .fallbackToDestructiveMigration()
+        .build()
 
+    @Singleton
     @Provides
-    fun provideUiThreads(): Scheduler = AndroidSchedulers.mainThread()
+    fun provideDBHelper(db: GamesDataBase): IDBHelper = DBHelper(db)
+
+    @Singleton
+    @Provides
+    fun provideGamesRepository(
+        apiHelper: ApiHelper,
+        dbHelper: IDBHelper,
+        schedulers: Schedulers
+    ): IGamesRepository = GamesRepository(apiHelper, dbHelper, schedulers)
 
 }

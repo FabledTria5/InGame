@@ -1,11 +1,13 @@
 package com.example.ingame.ui.fragments.catalogue
 
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.AssistedInject
 import moxy.MvpPresenter
 
-class CataloguePresenter(private val router: Router): MvpPresenter<CatalogueView>() {
+class CataloguePresenter @AssistedInject constructor(private val router: Router) :
+    MvpPresenter<CatalogueView>() {
 
-    fun backPressed() : Boolean {
+    fun backPressed(): Boolean {
         router.exit()
         return true
     }

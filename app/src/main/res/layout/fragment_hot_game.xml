@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="gameInfo"
-            type="com.example.ingame.data.network.model.games_list.Result" />
+            name="hotGame"
+            type="com.example.ingame.data.db.model.HotGame" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/gamePoster"
-            imageUrl="@{gameInfo.background_image}"
+            imageUrl="@{hotGame.gameImage}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@string/game_poster"
@@ -37,7 +37,7 @@
             android:ellipsize="end"
             android:maxWidth="@dimen/_170sdp"
             android:maxLines="2"
-            android:text="@{gameInfo.name}"
+            android:text="@{hotGame.gameTitle}"
             android:textColor="@color/white"
             android:textSize="@dimen/_25ssp"
             android:textStyle="bold"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:alpha="0.5"
-            android:text="@{gameInfo.esrb_rating.name}"
+            android:text="@{hotGame.gameRating}"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:alpha="0.5"
-            android:text="@{gameInfo.released.substring(0, 4)}"
+            android:text="@{hotGame.gameReleaseYear}"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tvGameRating"
@@ -70,14 +70,15 @@
             app:layout_constraintTop_toTopOf="@+id/tvGameRating" />
 
         <TextView
-            android:id="@+id/tvPlatforms"
-            platforms="@{gameInfo.platforms}"
+            android:id="@+id/tvPublishers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:alpha="0.5"
             android:ellipsize="end"
             android:maxWidth="@dimen/_150sdp"
+            android:maxLines="2"
+            android:text="@{hotGame.gamesPlatforms}"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tvGameReleaseYear"

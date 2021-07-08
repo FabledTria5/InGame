@@ -1,12 +1,16 @@
 package com.example.ingame
 
-import android.app.Application
-import android.util.Log
-import com.github.terrakok.cicerone.Cicerone
-import dagger.hilt.android.HiltAndroidApp
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import com.example.ingame.di.component.DaggerMainComponent
+import com.example.ingame.ui.schedulers.DefaultSchedulers
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-@HiltAndroidApp
-class MainApplication : Application() {
+class MainApplication : DaggerApplication() {
 
+    override fun applicationInjector(): AndroidInjector<MainApplication> =
+        DaggerMainComponent
+            .builder()
+            .withContext(applicationContext)
+            .withSchedulers(DefaultSchedulers)
+            .build()
 }
