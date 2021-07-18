@@ -92,9 +92,6 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     override fun backPressed() = gamePresenter.backPressed()
 
     private fun setupListeners() {
-        binding.ivBackButton.setOnClickListener {
-            gamePresenter.backPressed()
-        }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
