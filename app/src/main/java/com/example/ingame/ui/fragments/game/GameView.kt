@@ -12,4 +12,10 @@ interface GameView : TabView {
 
     @AddToEndSingle
     fun initViewPager(gameDetails: GameDetails)
+
+    @AddToEndSingle
+    fun initActionBar()
+
+    @AddToEndSingle
+    fun setupListeners()
 }

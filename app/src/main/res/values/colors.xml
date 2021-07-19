@@ -5,7 +5,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="DarkPrimary">#191a1d</color>
+    <color name="DarkPrimary">#121214</color>
     <color name="Silver">#bbbcbb</color>
     <color name="DarkLateGray">#656467</color>
     <color name="AppBarColor">#191a1d</color>
@@ -13,6 +13,7 @@
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#656467</color>
     <color name="CornFlowerBlue">#61a2d3</color>
     <color name="Turquoise">#26e3ec</color>
+    <color name="DimGray">#545555</color>
 
     <color name="main_gradient_start">#2de1f3</color>
     <color name="main_gradient_end">#747efb</color>

@@ -27,6 +27,10 @@ class GamePresenter @AssistedInject constructor(
         loadGameData()
     }
 
+    fun onCreateView() = viewState.initActionBar()
+
+    fun onViewCreated() = viewState.setupListeners()
+
     private fun loadGameData() {
         if (gameId == -1) {
             onGetGameError()
@@ -57,4 +61,10 @@ class GamePresenter @AssistedInject constructor(
     fun onTabSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onTabUnselected(position: Int?) = position?.let(viewState::unselectPageText)
+
+    fun onWebsiteClicked() = true
+
+    fun onFavouritesClicked()= true
+
+    fun onPlayedClicked()= true
 }

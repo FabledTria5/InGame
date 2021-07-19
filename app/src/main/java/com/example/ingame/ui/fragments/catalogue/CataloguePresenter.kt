@@ -11,4 +11,8 @@ class CataloguePresenter @AssistedInject constructor(private val router: Router)
         router.exit()
         return true
     }
+
+    fun onViewCreated() = viewState.setupListeners()
+
+    fun onVoiceSearchClicked() = viewState.openDisplaySpeechRecognizer()
 }
