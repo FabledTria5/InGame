@@ -9,4 +9,5 @@ interface IScreens {
     fun profile(): Screen
     fun hotGames(hotGameId: Int): Screen
     fun games(gameId: Int): Screen
+    fun search(): Screen
 }

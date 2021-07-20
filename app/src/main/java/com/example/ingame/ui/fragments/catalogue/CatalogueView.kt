@@ -9,9 +9,6 @@ import moxy.viewstate.strategy.alias.Skip
 interface CatalogueView : MvpView {
 
     @AddToEndSingle
-    fun setupListeners()
-
-    @Skip
-    fun openDisplaySpeechRecognizer()
+    fun setupMenu()
 
 }

@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -16,18 +15,17 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:titleEnabled="false">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/catalogue"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fragment_title_text_size"
-                    android:textStyle="bold"
-                    app:layout_collapseMode="pin" />
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:menu="@menu/catalogue_menu"
+                    app:title="@string/catalogue"
+                    app:titleCentered="true"
+                    app:titleTextAppearance="@style/FragmentTitleTextAppearance" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -42,37 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilSearchView"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:elevation="@dimen/_10sdp"
-                    app:boxCornerRadiusBottomEnd="5dp"
-                    app:boxCornerRadiusBottomStart="5dp"
-                    app:boxCornerRadiusTopEnd="5dp"
-                    app:boxCornerRadiusTopStart="5dp"
-                    app:boxStrokeWidth="0dp"
-                    app:endIconDrawable="@drawable/ic_keyboard_voice"
-                    app:endIconMode="custom"
-                    app:endIconTint="@color/DimGray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:startIconDrawable="@drawable/ic_search"
-                    app:startIconTint="@color/DimGray">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieSearchView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="#222325"
-                        android:backgroundTintMode="add"
-                        android:textCursorDrawable="@drawable/custom_cursor" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,8 @@ class MainPresenter(
 ) :
     MvpPresenter<MainView>() {
 
+    fun onCreate() = viewState.decorateBottomSheet()
+
     fun backClicked() = router.exit()
 
     fun homeClicked() = router.navigateTo(screens.home())

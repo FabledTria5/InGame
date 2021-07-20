@@ -1,13 +1,8 @@
 package com.example.ingame.ui.fragments.catalogue
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.speech.RecognizerIntent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCatalogueBinding
@@ -26,17 +21,6 @@ class CatalogueFragment : BaseDaggerFragment(), CatalogueView, BackButtonListene
         fun newInstance() = CatalogueFragment()
     }
 
-    private var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            val spokenText =
-                data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.let {
-                    it[0]
-                }
-            binding.tieSearchView.setText(spokenText)
-        }
-    }
-
     private lateinit var binding: FragmentCatalogueBinding
 
     private val cataloguePresenter by moxyPresenter {
@@ -49,26 +33,22 @@ class CatalogueFragment : BaseDaggerFragment(), CatalogueView, BackButtonListene
     ): View {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_catalogue, container, false)
+        cataloguePresenter.onCreateView()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        cataloguePresenter.onViewCreated()
-    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
+        inflater.inflate(R.menu.catalogue_menu, menu)
 
-    override fun setupListeners() {
-        binding.tilSearchView.setEndIconOnClickListener {
-            cataloguePresenter.onVoiceSearchClicked()
-        }
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.catalogueSearch -> cataloguePresenter.onSearchClicked()
+        else -> super.onOptionsItemSelected(item)
     }
-
-    override fun openDisplaySpeechRecognizer() =
-        Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-        }.let(resultLauncher::launch)
 
     override fun backPressed() = cataloguePresenter.backPressed()
+
+    override fun setupMenu() {
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setHasOptionsMenu(true)
+    }
 }

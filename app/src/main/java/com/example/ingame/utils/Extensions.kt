@@ -18,12 +18,10 @@ import java.util.*
 
 fun TabLayout.Tab.selectTab() {
     val textView = view.getChildAt(1) as MaterialTextView
-    val paint = textView.paint
-    val width = paint.measureText(text.toString())
-    val textShader = LinearGradient(
+    textView.paint.shader = LinearGradient(
         0f,
         0f,
-        width,
+        textView.paint.measureText(text.toString()),
         textView.textSize,
         intArrayOf(
             ContextCompat.getColor(textView.context, R.color.main_gradient_start),
@@ -31,7 +29,20 @@ fun TabLayout.Tab.selectTab() {
         ),
         null, Shader.TileMode.CLAMP
     )
-    textView.paint.shader = textShader
+}
+
+fun MaterialTextView.setGradientText() {
+    paint.shader = LinearGradient(
+        0f,
+        0f,
+        paint.measureText(text.toString()),
+        textSize,
+        intArrayOf(
+            ContextCompat.getColor(context, R.color.main_gradient_start),
+            ContextCompat.getColor(context, R.color.main_gradient_end)
+        ),
+        null, Shader.TileMode.CLAMP
+    )
 }
 
 fun TabLayout.Tab.unselectTab() {

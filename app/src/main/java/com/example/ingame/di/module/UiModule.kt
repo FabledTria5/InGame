@@ -14,6 +14,7 @@ import com.example.ingame.ui.fragments.popular.PopularFragment
 import com.example.ingame.ui.fragments.profile.ProfileFragment
 import com.example.ingame.ui.fragments.recommended.RecommendedFragment
 import com.example.ingame.ui.fragments.requirements.RequirementsFragment
+import com.example.ingame.ui.fragments.search.SearchFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -61,5 +62,8 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun bindNewGamesFragment(): NewGamesFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindSearchFragment(): SearchFragment
 
 }

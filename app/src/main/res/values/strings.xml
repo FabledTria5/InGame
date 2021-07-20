@@ -39,4 +39,5 @@
     <string name="add_to_favourites">Add to Favourites</string>
     <string name="add_to_played">Add to Played</string>
     <string name="open_website">Open Website</string>
+    <string name="search">Search</string>
 </resources>
