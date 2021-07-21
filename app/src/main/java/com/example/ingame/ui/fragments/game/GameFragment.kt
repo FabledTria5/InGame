@@ -124,7 +124,7 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     }
 
     override fun unselectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.unselectTab()
+        binding.tabLayout.getTabAt(page)?.clearGradient()
     }
 
     override fun backPressed() = gamePresenter.backPressed()

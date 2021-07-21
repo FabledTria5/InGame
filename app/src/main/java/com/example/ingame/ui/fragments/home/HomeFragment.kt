@@ -24,7 +24,7 @@ import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
 import com.example.ingame.utils.Constants.SELECTED_PLATFORM
 import com.example.ingame.utils.selectTab
 import com.example.ingame.utils.toast
-import com.example.ingame.utils.unselectTab
+import com.example.ingame.utils.clearGradient
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import moxy.ktx.moxyPresenter
@@ -81,7 +81,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
     override fun setNewSliderItem(previousTab: Int, newTab: Int) {
         binding.tabLayout.apply {
-            getTabAt(previousTab)?.unselectTab()
+            getTabAt(previousTab)?.clearGradient()
             getTabAt(newTab)?.selectTab()
         }
     }
@@ -189,7 +189,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun unselectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.unselectTab()
+        binding.tabLayout.getTabAt(page)?.clearGradient()
     }
 
     override fun backPressed() = homePresenter.backPressed()

@@ -3,12 +3,12 @@ package com.example.ingame.ui.activities.main
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.view.get
-import androidx.core.view.iterator
 import com.example.ingame.R
 import com.example.ingame.databinding.ActivityMainBinding
 import com.example.ingame.ui.di_base.BaseDaggerActivity
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.ui.navigation.IScreens
+import com.example.ingame.utils.clearGradient
 import com.example.ingame.utils.setGradientText
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -61,14 +61,11 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
         navigatorHolder.removeNavigator()
     }
 
-    override fun decorateBottomSheet() {
-        for (bottomNavigationItem in binding.bottomNavigation[0] as BottomNavigationMenuView) {
-            (((bottomNavigationItem as BottomNavigationItemView)
-                .getChildAt(1) as BaselineLayout)
-                .getChildAt(1) as MaterialTextView)
-                .setGradientText()
-        }
-    }
+    override fun setBottomNavTextGradient(position: Int) =
+        getNavigationTextView(position = position).setGradientText()
+
+    override fun clearBottomNavText(position: Int) =
+        getNavigationTextView(position = position).clearGradient()
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach { fragment ->
@@ -86,4 +83,10 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
         }
         return true
     }
+
+    private fun getNavigationTextView(position: Int) = ((((binding.bottomNavigation[0]
+            as BottomNavigationMenuView)[position]
+            as BottomNavigationItemView)
+        .getChildAt(1) as BaselineLayout)
+        .getChildAt(1) as MaterialTextView)
 }

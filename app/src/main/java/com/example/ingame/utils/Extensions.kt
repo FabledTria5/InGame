@@ -45,7 +45,11 @@ fun MaterialTextView.setGradientText() {
     )
 }
 
-fun TabLayout.Tab.unselectTab() {
+fun MaterialTextView.clearGradient() {
+    paint.shader = null
+}
+
+fun TabLayout.Tab.clearGradient() {
     val textView = view.getChildAt(1) as MaterialTextView
     textView.paint.shader = null
 }

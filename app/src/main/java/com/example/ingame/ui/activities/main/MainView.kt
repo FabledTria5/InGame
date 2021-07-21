@@ -6,6 +6,9 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 interface MainView : MvpView {
 
     @AddToEndSingle
-    fun decorateBottomSheet()
+    fun setBottomNavTextGradient(position: Int)
+
+    @AddToEndSingle
+    fun clearBottomNavText(position: Int)
 
 }
