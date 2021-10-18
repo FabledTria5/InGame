@@ -23,16 +23,16 @@ import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
-class PopularFragment : BaseDaggerFragment(), GamesLoaderView {
+class PopularGamesFragment : BaseDaggerFragment(), GamesLoaderView {
 
     @Inject
-    lateinit var popularPresenterFactory: PopularPresenterFactory
+    lateinit var popularGamesPresenterFactory: PopularGamesPresenterFactory
 
     private lateinit var binding: FragmentGamesListBinding
     private lateinit var gamesListAdapter: HomeGamesListAdapter
 
     private val popularPresenter by moxyPresenter {
-        popularPresenterFactory.create()
+        popularGamesPresenterFactory.create()
     }
 
     override fun onCreateView(

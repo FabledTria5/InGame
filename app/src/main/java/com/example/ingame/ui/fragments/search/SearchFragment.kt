@@ -10,12 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentSearchBinding
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.ktx.moxyPresenter
+import timber.log.Timber
+import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
@@ -68,6 +75,22 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
         binding.tilSearchView.setEndIconOnClickListener {
             searchPresenter.onVoiceSearchClicked()
         }
+
+        Observable.create(ObservableOnSubscribe<String> { subscriber ->
+            binding.tieSearchView.addTextChangedListener(
+                afterTextChanged = { editable ->
+                    subscriber.onNext(editable.toString())
+                }
+            )
+        })
+            .map { text -> text.lowercase(Locale.getDefault()).trim() }
+            .debounce(250, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .filter { text -> text.isNotBlank() }
+            .subscribeBy(
+                onNext = (searchPresenter::onSearchQueryChanged),
+                onError = (Timber::e)
+            )
     }
 
     override fun setupMenu() {
@@ -84,9 +107,7 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
         }.let(resultLauncher::launch)
 
 
-    override fun showError() {
-
-    }
+    override fun showError() = Unit
 
     override fun backPressed() = searchPresenter.backPressed()
 }

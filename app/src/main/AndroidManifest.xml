@@ -14,7 +14,8 @@
         android:theme="@style/Theme.InGame">
         <activity
             android:name=".ui.activities.splash.SplashScreenActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

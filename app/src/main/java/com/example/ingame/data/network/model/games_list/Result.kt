@@ -6,8 +6,8 @@ import java.io.Serializable
 
 data class Result(
     val added: Int,
-    val background_image: String,
-    val esrb_rating: EsrbRating,
+    val background_image: String?,
+    val esrb_rating: EsrbRating?,
     val id: Int,
     val metacritic: Int,
     val name: String,
@@ -16,7 +16,7 @@ data class Result(
     val rating: Double,
     val rating_top: Int,
     val ratings_count: Int,
-    val released: String,
+    val released: String?,
     val reviews_text_count: String,
     val slug: String,
     val suggestions_count: Int,

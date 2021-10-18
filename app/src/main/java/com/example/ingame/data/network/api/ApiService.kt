@@ -17,7 +17,8 @@ interface ApiService {
     fun getHotGames(
         @Query(value = "page") page: Int,
         @Query(value = "updated", encoded = true) updated: String,
-        @Query(value = "page_size") pageSize: Int
+        @Query(value = "page_size") pageSize: Int,
+        @Query(value = "ordering") ordering: String = "-rating"
     ): Single<GamesList>
 
     @GET(value = "api/games")
@@ -54,4 +55,11 @@ interface ApiService {
     fun getPlatformsList(
         @Query(value = "page_size") pageSize: Int = 15
     ): Single<Platforms>
+
+    @GET(value = "api/games/")
+    fun searchGames(
+        @Query(value = "search") query: String,
+        @Query(value = "page") page: Int = 0,
+        @Query(value = "ordering") ordering: String = "-released"
+    ): Single<GamesList>
 }

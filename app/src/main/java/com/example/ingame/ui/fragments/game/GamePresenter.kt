@@ -2,7 +2,7 @@ package com.example.ingame.ui.fragments.game
 
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.repository.GamesRepository
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -15,7 +15,7 @@ class GamePresenter @AssistedInject constructor(
     @Assisted(value = "gameId") private val gameId: Int,
     private val router: Router,
     private val gamesRepository: GamesRepository,
-    private val schedulers: Schedulers
+    private val ISchedulers: ISchedulers
 ) :
     MvpPresenter<GameView>() {
 
@@ -37,7 +37,7 @@ class GamePresenter @AssistedInject constructor(
             return
         }
         disposables += gamesRepository.getGameDetails(gameId)
-            .observeOn(schedulers.main())
+            .observeOn(ISchedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetGameSuccess),
                 onError = { onGetGameError() }

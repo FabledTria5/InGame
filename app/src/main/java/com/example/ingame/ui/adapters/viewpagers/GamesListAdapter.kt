@@ -5,13 +5,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.ingame.ui.fragments.new_games.NewGamesFragment
-import com.example.ingame.ui.fragments.popular.PopularFragment
+import com.example.ingame.ui.fragments.popular.PopularGamesFragment
 import com.example.ingame.ui.fragments.recommended.RecommendedFragment
 
 class GamesListAdapter(
     private val fragments: ArrayList<Fragment> = arrayListOf(
         RecommendedFragment(),
-        PopularFragment(),
+        PopularGamesFragment(),
         NewGamesFragment()
     ), lifecycle: Lifecycle,
     fragmentManager: FragmentManager

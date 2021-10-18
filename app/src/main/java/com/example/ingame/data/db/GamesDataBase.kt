@@ -6,7 +6,7 @@ import com.example.ingame.data.db.dao.GamesDao
 import com.example.ingame.data.db.model.HotGame
 import com.example.ingame.data.db.model.Platform
 
-@Database(entities = [HotGame::class, Platform::class], version = 4)
+@Database(entities = [HotGame::class, Platform::class], version = 5)
 abstract class GamesDataBase : RoomDatabase() {
     abstract fun gamesDao() : GamesDao
 }

@@ -8,7 +8,7 @@ import com.example.ingame.data.db.helper.IDBHelper
 import com.example.ingame.data.network.api.ApiHelper
 import com.example.ingame.data.repository.GamesRepository
 import com.example.ingame.data.repository.IGamesRepository
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,7 +32,7 @@ class DataModule {
     fun provideGamesRepository(
         apiHelper: ApiHelper,
         dbHelper: IDBHelper,
-        schedulers: Schedulers
-    ): IGamesRepository = GamesRepository(apiHelper, dbHelper, schedulers)
+        ISchedulers: ISchedulers
+    ): IGamesRepository = GamesRepository(apiHelper, dbHelper, ISchedulers)
 
 }

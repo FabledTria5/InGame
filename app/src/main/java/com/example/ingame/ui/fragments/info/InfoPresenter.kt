@@ -3,7 +3,7 @@ package com.example.ingame.ui.fragments.info
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.data.repository.GamesRepository
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -14,7 +14,7 @@ import moxy.MvpPresenter
 class InfoPresenter @AssistedInject constructor(
     @Assisted private val gameDetails: GameDetails?,
     private val gamesRepository: GamesRepository,
-    private val schedulers: Schedulers
+    private val ISchedulers: ISchedulers
 ) : MvpPresenter<InfoView>() {
 
     private val disposables = CompositeDisposable()
@@ -36,7 +36,7 @@ class InfoPresenter @AssistedInject constructor(
         }
 
         disposables += gamesRepository.getDevelopers(gameId = gameDetails.id)
-            .observeOn(schedulers.main())
+            .observeOn(ISchedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetDevelopersSuccess),
                 onError = (::onGetError)

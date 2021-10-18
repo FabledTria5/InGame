@@ -2,9 +2,10 @@ package com.example.ingame.ui.activities.main
 
 import com.example.ingame.ui.navigation.IScreens
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.AssistedInject
 import moxy.MvpPresenter
 
-class MainPresenter(
+class MainPresenter @AssistedInject constructor(
     private val router: Router,
     private val screens: IScreens,
 ) :

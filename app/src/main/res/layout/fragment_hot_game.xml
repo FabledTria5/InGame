@@ -78,7 +78,7 @@
             android:ellipsize="end"
             android:maxWidth="@dimen/_150sdp"
             android:maxLines="2"
-            android:text="@{hotGame.gamesPlatforms}"
+            android:text="@{hotGame.gamePlatforms}"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tvGameReleaseYear"

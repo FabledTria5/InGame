@@ -120,7 +120,7 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     }
 
     override fun selectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.selectTab()
+        binding.tabLayout.getTabAt(page)?.setGradientText()
     }
 
     override fun unselectPageText(page: Int) {

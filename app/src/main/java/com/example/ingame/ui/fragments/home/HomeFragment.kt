@@ -1,5 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ import com.example.ingame.utils.Constants.PLATFORM_REQUEST
 import com.example.ingame.utils.Constants.PREFERENCE_DATE
 import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
 import com.example.ingame.utils.Constants.SELECTED_PLATFORM
-import com.example.ingame.utils.selectTab
+import com.example.ingame.utils.setGradientText
 import com.example.ingame.utils.toast
 import com.example.ingame.utils.clearGradient
 import com.google.android.material.tabs.TabLayout
@@ -58,6 +59,8 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        homePresenter.initialize()
+
         childFragmentManager.setFragmentResultListener(
             PLATFORM_REQUEST,
             viewLifecycleOwner
@@ -82,7 +85,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     override fun setNewSliderItem(previousTab: Int, newTab: Int) {
         binding.tabLayout.apply {
             getTabAt(previousTab)?.clearGradient()
-            getTabAt(newTab)?.selectTab()
+            getTabAt(newTab)?.setGradientText()
         }
     }
 
@@ -185,7 +188,7 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun selectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.selectTab()
+        binding.tabLayout.getTabAt(page)?.setGradientText()
     }
 
     override fun unselectPageText(page: Int) {

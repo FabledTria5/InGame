@@ -3,7 +3,7 @@ package com.example.ingame.ui.fragments.hot_game
 import com.example.ingame.data.db.model.HotGame
 import com.example.ingame.data.repository.GamesRepository
 import com.example.ingame.ui.navigation.IScreens
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -14,7 +14,7 @@ import moxy.MvpPresenter
 
 class HotGamePresenter @AssistedInject constructor(
     @Assisted(value = "gameId") private val hotGameId: Int,
-    private val schedulers: Schedulers,
+    private val ISchedulers: ISchedulers,
     private val gamesRepository: GamesRepository,
     private val router: Router,
     private val screens: IScreens,
@@ -29,7 +29,7 @@ class HotGamePresenter @AssistedInject constructor(
 
     private fun loadHotGame() {
         disposables += gamesRepository.getHotGameById(hotGameId)
-            .observeOn(schedulers.main())
+            .observeOn(ISchedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetHotGameSuccess),
                 onError = { onGetHotGameError() }

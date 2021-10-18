@@ -3,32 +3,29 @@ package com.example.ingame.utils
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.text.TextUtils
-import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.ingame.R
 import com.example.ingame.data.network.model.common.Platforms
 import com.example.ingame.data.network.model.game_detail.GameDetails
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.internal.BaselineLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textview.MaterialTextView
 import moxy.MvpAppCompatFragment
 import java.util.*
 
-fun TabLayout.Tab.selectTab() {
-    val textView = view.getChildAt(1) as MaterialTextView
-    textView.paint.shader = LinearGradient(
-        0f,
-        0f,
-        textView.paint.measureText(text.toString()),
-        textView.textSize,
-        intArrayOf(
-            ContextCompat.getColor(textView.context, R.color.main_gradient_start),
-            ContextCompat.getColor(textView.context, R.color.main_gradient_end)
-        ),
-        null, Shader.TileMode.CLAMP
-    )
+fun TabLayout.Tab.setGradientText() {
+    (view.getChildAt(1) as MaterialTextView).setGradientText()
+}
+
+fun TabLayout.Tab.clearGradient() {
+    (view.getChildAt(1) as MaterialTextView).clearGradient()
 }
 
 fun MaterialTextView.setGradientText() {
@@ -45,13 +42,14 @@ fun MaterialTextView.setGradientText() {
     )
 }
 
+fun BottomNavigationView.getTextView(position: Int) = ((((this[0]
+        as BottomNavigationMenuView)[position]
+        as BottomNavigationItemView)
+    .getChildAt(1) as BaselineLayout)
+    .getChildAt(1) as MaterialTextView)
+
 fun MaterialTextView.clearGradient() {
     paint.shader = null
-}
-
-fun TabLayout.Tab.clearGradient() {
-    val textView = view.getChildAt(1) as MaterialTextView
-    textView.paint.shader = null
 }
 
 fun MvpAppCompatFragment.toast(message: String) =
