@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -74,6 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/_10sdp"
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE, default=visible}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,14 +93,15 @@
                 android:id="@+id/lottieLoadingAnimation"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
+                android:visibility="@{isLoading ? View.VISIBLE : View.INVISIBLE, default=invisible}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tilSearchView"
-                app:lottie_autoPlay="true"
-                app:lottie_speed="2"
+                app:lottie_autoPlay="false"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading_animation" />
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_speed="2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
