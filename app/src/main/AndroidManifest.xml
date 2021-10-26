@@ -14,15 +14,17 @@
         android:theme="@style/Theme.InGame">
         <activity
             android:name=".ui.activities.splash.SplashScreenActivity"
-            android:noHistory="true"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.main.MainActivity" />
+        <activity
+            android:name=".ui.activities.main.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

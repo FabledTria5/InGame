@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.testing.FragmentScenario
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentSearchBinding
+import com.example.ingame.ui.activities.main.MainActivity
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import io.reactivex.rxjava3.core.Observable
@@ -42,7 +43,11 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
                 data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.let {
                     it[0]
                 }
-            binding.tieSearchView.setText(spokenText)
+            if (spokenText != null && spokenText.isNotEmpty()) {
+                binding.isLoading = true
+                binding.tieSearchView.setText(spokenText)
+                searchPresenter.onSearchQueryChanged(spokenText)
+            }
         }
     }
 
@@ -93,14 +98,23 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
             .distinctUntilChanged()
             .filter { text -> text.isNotBlank() }
             .subscribeBy(
-                onNext = (searchPresenter::onSearchQueryChanged),
+                onNext = {
+                    searchPresenter::onSearchQueryChanged
+                    binding.isLoading = true
+                },
                 onError = (Timber::e)
             )
     }
 
     override fun setupMenu() {
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        setHasOptionsMenu(true)
+        when {
+            activity is MainActivity && activity != null -> {
+                (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+                setHasOptionsMenu(true)
+            }
+            activity is FragmentScenario.EmptyFragmentActivity -> Unit
+            else -> Timber.d("Something wrong with activity: $activity")
+        }
     }
 
     override fun setLoading(isLoading: Boolean) {

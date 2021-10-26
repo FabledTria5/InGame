@@ -74,6 +74,7 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="#222325"
                     android:backgroundTintMode="add"
+                    android:inputType="textNoSuggestions"
                     android:textCursorDrawable="@drawable/custom_cursor" />
 
             </com.google.android.material.textfield.TextInputLayout>
