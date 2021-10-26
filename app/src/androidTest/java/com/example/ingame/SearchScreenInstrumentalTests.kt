@@ -66,13 +66,19 @@ class SearchScreenInstrumentalTests : TestCase() {
     }.after {
         Intents.release()
     }.run {
-        searchScreen {
-            speechIntentWithResult.intending()
-            searchView {
-                click(GeneralLocation.CENTER_RIGHT)
+        step(description = "Start speech intent") {
+            searchScreen {
+                speechIntentWithResult.intending()
+                searchView {
+                    click(GeneralLocation.CENTER_RIGHT)
+                }
             }
-            searchEditText {
-                hasText(text = testString)
+        }
+        step(description = "Check value in search field") {
+            searchScreen {
+                searchEditText {
+                    hasText(text = testString)
+                }
             }
         }
     }
@@ -98,16 +104,23 @@ class SearchScreenInstrumentalTests : TestCase() {
     }.after {
         Intents.release()
     }.run {
-        searchScreen {
-            speechIntentWithResult.intending()
-            searchView {
-                click(GeneralLocation.CENTER_RIGHT)
+        step(description = "Start speech intent") {
+            searchScreen {
+                speechIntentWithResult.intending()
+                searchView {
+                    click(GeneralLocation.CENTER_RIGHT)
+                }
             }
-            loadingAnimation {
-                isVisible()
-            }
-            searchResults {
-                isInvisible()
+        }
+        step(description = "Check loading state") {
+            searchScreen {
+
+                loadingAnimation {
+                    isVisible()
+                }
+                searchResults {
+                    isInvisible()
+                }
             }
         }
     }

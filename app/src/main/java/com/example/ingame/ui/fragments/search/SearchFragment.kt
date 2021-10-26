@@ -30,6 +30,8 @@ import javax.inject.Inject
 class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
 
     companion object {
+        const val SEARCH_DEBOUNCE = 500L
+
         fun newInstance() = SearchFragment()
     }
 
@@ -47,7 +49,7 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
                 binding.isLoading = true
                 binding.tieSearchView.setText(spokenText)
                 searchPresenter.onSearchQueryChanged(spokenText)
-            }
+            } else binding.isLoading = false
         }
     }
 
@@ -94,7 +96,7 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
 
         Observable.create(editTextSubscriber)
             .map { text -> text.lowercase(Locale.getDefault()).trim() }
-            .debounce(350, TimeUnit.MILLISECONDS)
+            .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .filter { text -> text.isNotBlank() }
             .subscribeBy(
@@ -128,7 +130,6 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
             )
         }.let(resultLauncher::launch)
-
 
     override fun showError() = Unit
 
