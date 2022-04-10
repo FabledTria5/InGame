@@ -15,8 +15,10 @@ import com.example.ingame.ui.adapters.recyclerviews.SnapshotsAdapter
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.utils.arguments
 import com.example.ingame.utils.toast
+import com.mig35.carousellayoutmanager.CarouselLayoutManager
+import com.mig35.carousellayoutmanager.CarouselZoomPostLayoutListener
+import com.mig35.carousellayoutmanager.CenterScrollListener
 import moxy.ktx.moxyPresenter
-import recycler.coverflow.CoverFlowLayoutManger
 import javax.inject.Inject
 
 class AboutFragment : BaseDaggerFragment(), AboutView {
@@ -44,7 +46,7 @@ class AboutFragment : BaseDaggerFragment(), AboutView {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil
             .inflate(layoutInflater, R.layout.fragment_about, container, false)
@@ -56,14 +58,17 @@ class AboutFragment : BaseDaggerFragment(), AboutView {
     }
 
     override fun setSnapshots(snapshots: List<ScreenshotsResult>) {
-        val coverFlowLayoutManger =
-            CoverFlowLayoutManger(false, false, false, 0.7f)
+        val carouselLayoutManager =
+            CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true).also {
+                it.setPostLayoutListener(CarouselZoomPostLayoutListener(0.3f))
+            }
         val snapshotsAdapter = SnapshotsAdapter(snapshots)
         binding.rvSnapshots.apply {
             adapter = snapshotsAdapter
-            layoutManager = coverFlowLayoutManger
+            layoutManager = carouselLayoutManager
+            setHasFixedSize(true)
+            addOnScrollListener(CenterScrollListener())
         }
-        binding.rvSnapshots.scrollToPosition(snapshotsAdapter.itemCount / 2)
     }
 
     override fun showError() = toast(getString(R.string.game_info_error))

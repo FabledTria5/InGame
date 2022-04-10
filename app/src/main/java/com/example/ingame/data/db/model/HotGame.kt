@@ -11,5 +11,5 @@ data class HotGame(
     val gameTitle: String,
     val gameRating: String,
     val gameReleaseYear: String,
-    val gamesPlatforms: String
+    val gamePlatforms: String
 )

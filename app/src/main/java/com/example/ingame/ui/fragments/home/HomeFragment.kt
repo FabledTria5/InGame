@@ -1,5 +1,6 @@
 package com.example.ingame.ui.fragments.home
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,9 +23,9 @@ import com.example.ingame.utils.Constants.PLATFORM_REQUEST
 import com.example.ingame.utils.Constants.PREFERENCE_DATE
 import com.example.ingame.utils.Constants.RESULT_SELECTED_PLATFORM
 import com.example.ingame.utils.Constants.SELECTED_PLATFORM
-import com.example.ingame.utils.selectTab
+import com.example.ingame.utils.setGradientText
 import com.example.ingame.utils.toast
-import com.example.ingame.utils.unselectTab
+import com.example.ingame.utils.clearGradient
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import moxy.ktx.moxyPresenter
@@ -58,6 +59,8 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        homePresenter.initialize()
+
         childFragmentManager.setFragmentResultListener(
             PLATFORM_REQUEST,
             viewLifecycleOwner
@@ -81,8 +84,8 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
 
     override fun setNewSliderItem(previousTab: Int, newTab: Int) {
         binding.tabLayout.apply {
-            getTabAt(previousTab)?.unselectTab()
-            getTabAt(newTab)?.selectTab()
+            getTabAt(previousTab)?.clearGradient()
+            getTabAt(newTab)?.setGradientText()
         }
     }
 
@@ -185,11 +188,11 @@ class HomeFragment : BaseDaggerFragment(), HomeView, BackButtonListener {
     }
 
     override fun selectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.selectTab()
+        binding.tabLayout.getTabAt(page)?.setGradientText()
     }
 
     override fun unselectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.unselectTab()
+        binding.tabLayout.getTabAt(page)?.clearGradient()
     }
 
     override fun backPressed() = homePresenter.backPressed()

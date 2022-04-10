@@ -1,9 +1,8 @@
 package com.example.ingame.ui.fragments.game
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.data.network.model.game_detail.GameDetails
@@ -46,11 +45,23 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
     ): View {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_game, container, false)
+        gamePresenter.onCreateView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupListeners()
+        gamePresenter.onViewCreated()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.game_page_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.openWebsite -> gamePresenter.onWebsiteClicked()
+        R.id.addToFavourites -> gamePresenter.onFavouritesClicked()
+        R.id.addToPlayed -> gamePresenter.onPlayedClicked()
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun initViewPager(gameDetails: GameDetails) {
@@ -77,24 +88,15 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
         }.attach()
     }
 
-    override fun setGameData(gameDetails: GameDetails) {
-        binding.gameDetail = gameDetails
-    }
-
-    override fun selectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.selectTab()
-    }
-
-    override fun unselectPageText(page: Int) {
-        binding.tabLayout.getTabAt(page)?.unselectTab()
-    }
-
-    override fun backPressed() = gamePresenter.backPressed()
-
-    private fun setupListeners() {
-        binding.ivBackButton.setOnClickListener {
-            gamePresenter.backPressed()
+    override fun initActionBar() {
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(binding.appbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
         }
+        setHasOptionsMenu(true)
+    }
+
+    override fun setupListeners() {
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -107,6 +109,24 @@ class GameFragment : BaseDaggerFragment(), GameView, BackButtonListener {
 
             override fun onTabReselected(tab: TabLayout.Tab?) = Unit
         })
+
+        binding.appbar.setNavigationOnClickListener {
+            gamePresenter.backPressed()
+        }
     }
+
+    override fun setGameData(gameDetails: GameDetails) {
+        binding.gameDetail = gameDetails
+    }
+
+    override fun selectPageText(page: Int) {
+        binding.tabLayout.getTabAt(page)?.setGradientText()
+    }
+
+    override fun unselectPageText(page: Int) {
+        binding.tabLayout.getTabAt(page)?.clearGradient()
+    }
+
+    override fun backPressed() = gamePresenter.backPressed()
 
 }

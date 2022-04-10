@@ -23,4 +23,6 @@ class ApiHelperImpl @Inject constructor(
 
     override fun getPlatforms() = apiService.getPlatformsList()
 
+    override fun searchGames(query: String) = apiService.searchGames(query = query)
+
 }

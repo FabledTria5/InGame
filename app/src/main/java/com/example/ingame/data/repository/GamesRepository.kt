@@ -7,14 +7,14 @@ import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.network.model.game_developers.GameDevelopers
 import com.example.ingame.data.network.model.games_list.GamesList
 import com.example.ingame.data.network.model.screenshots.Snapshots
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class GamesRepository @Inject constructor(
     private val apiHelper: ApiHelper,
     private val dbHelper: IDBHelper,
-    private val schedulers: Schedulers
+    private val schedulers: ISchedulers
 ) : IGamesRepository {
 
     override fun getHotGames(page: Int, updated: String, pageSize: Int): Single<List<Int>> =

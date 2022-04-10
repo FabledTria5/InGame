@@ -3,7 +3,7 @@ package com.example.ingame.di.component
 import android.content.Context
 import com.example.ingame.MainApplication
 import com.example.ingame.di.module.*
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -31,7 +31,7 @@ interface MainComponent : AndroidInjector<MainApplication> {
         fun withContext(context: Context): Builder
 
         @BindsInstance
-        fun withSchedulers(schedulers: Schedulers): Builder
+        fun withSchedulers(ISchedulers: ISchedulers): Builder
 
         fun build(): MainComponent
 

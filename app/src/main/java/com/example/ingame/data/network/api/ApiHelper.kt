@@ -17,4 +17,6 @@ interface ApiHelper {
     fun getDevelopers(gameId: Int): Single<GameDevelopers>
 
     fun getPlatforms(): Single<Platforms>
+
+    fun searchGames(query: String): Single<GamesList>
 }

@@ -7,7 +7,7 @@ import com.example.ingame.ui.adapters.recyclerviews.home.IHomeGamesPresenter
 import com.example.ingame.ui.base.GamesLoaderView
 import com.example.ingame.ui.adapters.recyclerviews.home.IHomeGamesViewHolder
 import com.example.ingame.ui.navigation.IScreens
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import com.example.ingame.utils.DateFormatter
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.AssistedInject
@@ -16,8 +16,8 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
 
-class PopularPresenter @AssistedInject constructor(
-    private val schedulers: Schedulers,
+class PopularGamesPresenter @AssistedInject constructor(
+    private val ISchedulers: ISchedulers,
     private val gamesRepository: IGamesRepository,
     private val router: Router,
     private val screens: IScreens
@@ -34,7 +34,7 @@ class PopularPresenter @AssistedInject constructor(
         override var itemClickListener: ((position: Int) -> Unit)? = null
 
         override fun bindView(view: IHomeGamesViewHolder, position: Int) =
-            view.bindImage(gamesList[position].background_image, position)
+            view.bindImage(gamesList[position].background_image!!, position)
 
         override fun getCount() = gamesList.count()
 
@@ -62,7 +62,7 @@ class PopularPresenter @AssistedInject constructor(
             platform = platformId,
             dates = DateFormatter.getLastMonthsInApiForm(count = 3)
         )
-            .observeOn(schedulers.main())
+            .observeOn(ISchedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetGamesSuccess)
             )

@@ -2,7 +2,7 @@ package com.example.ingame.ui.fragments.game
 
 import com.example.ingame.data.network.model.game_detail.GameDetails
 import com.example.ingame.data.repository.GamesRepository
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -15,7 +15,7 @@ class GamePresenter @AssistedInject constructor(
     @Assisted(value = "gameId") private val gameId: Int,
     private val router: Router,
     private val gamesRepository: GamesRepository,
-    private val schedulers: Schedulers
+    private val ISchedulers: ISchedulers
 ) :
     MvpPresenter<GameView>() {
 
@@ -27,13 +27,17 @@ class GamePresenter @AssistedInject constructor(
         loadGameData()
     }
 
+    fun onCreateView() = viewState.initActionBar()
+
+    fun onViewCreated() = viewState.setupListeners()
+
     private fun loadGameData() {
         if (gameId == -1) {
             onGetGameError()
             return
         }
         disposables += gamesRepository.getGameDetails(gameId)
-            .observeOn(schedulers.main())
+            .observeOn(ISchedulers.main())
             .subscribeBy(
                 onSuccess = (::onGetGameSuccess),
                 onError = { onGetGameError() }
@@ -57,4 +61,10 @@ class GamePresenter @AssistedInject constructor(
     fun onTabSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onTabUnselected(position: Int?) = position?.let(viewState::unselectPageText)
+
+    fun onWebsiteClicked() = true
+
+    fun onFavouritesClicked()= true
+
+    fun onPlayedClicked()= true
 }

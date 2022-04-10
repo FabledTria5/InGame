@@ -7,6 +7,9 @@ import com.example.ingame.databinding.ActivityMainBinding
 import com.example.ingame.ui.di_base.BaseDaggerActivity
 import com.example.ingame.ui.navigation.BackButtonListener
 import com.example.ingame.ui.navigation.IScreens
+import com.example.ingame.utils.clearGradient
+import com.example.ingame.utils.getTextView
+import com.example.ingame.utils.setGradientText
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -25,10 +28,13 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
+    @Inject
+    lateinit var mainPresenterFactory: MainPresenterFactory
+
     private lateinit var binding: ActivityMainBinding
 
     private val mainPresenter by moxyPresenter {
-        MainPresenter(router, screens)
+        mainPresenterFactory.create()
     }
 
     private val navigator = AppNavigator(this, R.id.fragmentContainer)
@@ -40,6 +46,7 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
             ?: router.newRootScreen(screens.home())
         binding.bottomNavigation.setOnItemSelectedListener(this)
         binding.bottomNavigation.itemIconTintList = null
+        mainPresenter.onCreate()
     }
 
     override fun onResumeFragments() {
@@ -51,6 +58,12 @@ class MainActivity : BaseDaggerActivity(), MainView, NavigationBarView.OnItemSel
         super.onPause()
         navigatorHolder.removeNavigator()
     }
+
+    override fun setBottomNavTextGradient(position: Int) =
+        binding.bottomNavigation.getTextView(position).setGradientText()
+
+    override fun clearBottomNavText(position: Int) =
+        binding.bottomNavigation.getTextView(position).clearGradient()
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach { fragment ->

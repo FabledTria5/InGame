@@ -1,9 +1,8 @@
 package com.example.ingame.ui.fragments.catalogue
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentCatalogueBinding
@@ -18,6 +17,7 @@ class CatalogueFragment : BaseDaggerFragment(), CatalogueView, BackButtonListene
     lateinit var cataloguePresenterFactory: CataloguePresenterFactory
 
     companion object {
+
         fun newInstance() = CatalogueFragment()
     }
 
@@ -31,9 +31,24 @@ class CatalogueFragment : BaseDaggerFragment(), CatalogueView, BackButtonListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_catalogue, container, false)
+        binding = DataBindingUtil
+            .inflate(inflater, R.layout.fragment_catalogue, container, false)
+        cataloguePresenter.onCreateView()
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
+        inflater.inflate(R.menu.catalogue_menu, menu)
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.catalogueSearch -> cataloguePresenter.onSearchClicked()
+        else -> super.onOptionsItemSelected(item)
+    }
+
     override fun backPressed() = cataloguePresenter.backPressed()
+
+    override fun setupMenu() {
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setHasOptionsMenu(true)
+    }
 }

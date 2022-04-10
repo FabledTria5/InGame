@@ -1,19 +1,20 @@
 package com.example.ingame.ui.fragments.home
 
 import com.example.ingame.data.repository.IGamesRepository
-import com.example.ingame.ui.schedulers.Schedulers
+import com.example.ingame.ui.schedulers.ISchedulers
 import com.github.terrakok.cicerone.Router
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import moxy.MvpPresenter
+import timber.log.Timber
 import javax.inject.Named
 
 class HomePresenter @AssistedInject constructor(
     @Named(value = "today") private val today: String,
     @Named(value = "lastKnownDate") private val lastKnownDate: String,
-    private val schedulers: Schedulers,
+    private val schedulers: ISchedulers,
     private val gamesRepository: IGamesRepository,
     private val router: Router,
 ) :
@@ -26,10 +27,9 @@ class HomePresenter @AssistedInject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+
         viewState.setupGamesViewPager()
-        viewState.selectPageText(0)
-        getSliderGames()
-        getPlatformsList()
+        viewState.selectPageText(page = 0)
     }
 
     override fun onDestroy() {
@@ -37,30 +37,36 @@ class HomePresenter @AssistedInject constructor(
         disposables.dispose()
     }
 
-    private fun getSliderGames() {
+    fun initialize() {
+        getSliderGames()
+        getPlatformsList()
+    }
+
+    fun getSliderGames() {
         if (today == lastKnownDate)
             disposables += getCachedGames()
                 .observeOn(schedulers.main())
                 .subscribeBy(
                     onSuccess = (::onGetSliderGamesSuccess),
-                    onError = { onGetSliderGamesError() }
+                    onError = (::onGetSliderGamesError)
                 )
         else {
             disposables += getNewListOfGames()
                 .observeOn(schedulers.main())
                 .subscribeBy(
                     onSuccess = (::onGetSliderGamesSuccess),
-                    onError = { onGetSliderGamesError() }
+                    onError = (::onGetSliderGamesError)
                 )
             viewState.updateDate(today)
         }
     }
 
-    private fun getPlatformsList() {
+    fun getPlatformsList() {
         disposables += gamesRepository.getPlatformsList()
             .observeOn(schedulers.main())
             .subscribeBy(
-                onSuccess = (::onGetPlatformsSuccess)
+                onSuccess = (::onGetPlatformsSuccess),
+                onError = (::onGetPlatformsError)
             )
     }
 
@@ -94,17 +100,23 @@ class HomePresenter @AssistedInject constructor(
 
     private fun onGetPlatformIdSuccess(platformId: Int) = viewState.setCurrentPlatform(platformId)
 
-    private fun onGetSliderGamesError() {
+    private fun onGetPlatformsError(error: Throwable) {
+        Timber.e(t = error)
         viewState.showError()
     }
 
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
+    private fun onGetSliderGamesError(error: Throwable) {
+        Timber.e(t = error)
+        viewState.showError()
     }
 
     fun onGamesPageSelected(position: Int?) = position?.let(viewState::selectPageText)
 
     fun onGamesPageUnselected(position: Int?) = position?.let(viewState::unselectPageText)
+
+    fun backPressed(): Boolean {
+        router.exit()
+        return true
+    }
 
 }
