@@ -22,7 +22,7 @@ class SearchPresenter @AssistedInject constructor(
     fun onVoiceSearchClicked() = viewState.openDisplaySpeechRecognizer()
 
     fun onSearchQueryChanged(query: String) {
-
+        viewState.setLoading(true)
     }
 
     fun backPressed(): Boolean {

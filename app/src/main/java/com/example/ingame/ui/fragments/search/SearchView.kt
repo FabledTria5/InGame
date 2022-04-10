@@ -15,4 +15,7 @@ interface SearchView : ErrorView {
     @AddToEndSingle
     fun setupMenu()
 
+    @AddToEndSingle
+    fun setLoading(isLoading: Boolean)
+
 }

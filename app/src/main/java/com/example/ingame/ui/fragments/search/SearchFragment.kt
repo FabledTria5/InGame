@@ -10,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.testing.FragmentScenario
 import com.example.ingame.R
 import com.example.ingame.databinding.FragmentSearchBinding
+import com.example.ingame.ui.activities.main.MainActivity
 import com.example.ingame.ui.di_base.BaseDaggerFragment
 import com.example.ingame.ui.navigation.BackButtonListener
 import io.reactivex.rxjava3.core.Observable
@@ -28,20 +30,32 @@ import javax.inject.Inject
 class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
 
     companion object {
+        const val SEARCH_DEBOUNCE = 500L
+
         fun newInstance() = SearchFragment()
     }
 
     @Inject
     lateinit var searchPresenterFactory: SearchPresenterFactory
 
-    private var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+    private val resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             val spokenText =
                 data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.let {
                     it[0]
                 }
-            binding.tieSearchView.setText(spokenText)
+            if (spokenText != null && spokenText.isNotEmpty()) {
+                binding.isLoading = true
+                binding.tieSearchView.setText(spokenText)
+                searchPresenter.onSearchQueryChanged(spokenText)
+            } else binding.isLoading = false
+        }
+    }
+
+    private val editTextSubscriber = ObservableOnSubscribe<String> { subscriber ->
+        binding.tieSearchView.doAfterTextChanged {
+            subscriber.onNext(it.toString())
         }
     }
 
@@ -54,7 +68,7 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil
             .inflate(layoutInflater, R.layout.fragment_search, container, false)
@@ -76,26 +90,37 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
             searchPresenter.onVoiceSearchClicked()
         }
 
-        Observable.create(ObservableOnSubscribe<String> { subscriber ->
-            binding.tieSearchView.addTextChangedListener(
-                afterTextChanged = { editable ->
-                    subscriber.onNext(editable.toString())
-                }
-            )
-        })
+        binding.tilSearchView.setStartIconOnClickListener {
+            searchPresenter.onSearchQueryChanged(binding.tieSearchView.text.toString())
+        }
+
+        Observable.create(editTextSubscriber)
             .map { text -> text.lowercase(Locale.getDefault()).trim() }
-            .debounce(250, TimeUnit.MILLISECONDS)
+            .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .filter { text -> text.isNotBlank() }
             .subscribeBy(
-                onNext = (searchPresenter::onSearchQueryChanged),
+                onNext = {
+                    searchPresenter::onSearchQueryChanged
+                    binding.isLoading = true
+                },
                 onError = (Timber::e)
             )
     }
 
     override fun setupMenu() {
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        setHasOptionsMenu(true)
+        when {
+            activity is MainActivity && activity != null -> {
+                (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+                setHasOptionsMenu(true)
+            }
+            activity is FragmentScenario.EmptyFragmentActivity -> Unit
+            else -> Timber.d("Something wrong with activity: $activity")
+        }
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        binding.isLoading = isLoading
     }
 
     override fun openDisplaySpeechRecognizer() =
@@ -105,7 +130,6 @@ class SearchFragment : BaseDaggerFragment(), SearchView, BackButtonListener {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
             )
         }.let(resultLauncher::launch)
-
 
     override fun showError() = Unit
 
